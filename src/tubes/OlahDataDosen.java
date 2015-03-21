@@ -19,7 +19,7 @@ public class OlahDataDosen implements TabelOlahData{
     public void addDosen(Dosen d){
       dataDosen.add(d);
     }
-    public void removeDosen(String nama){
+    public void remove(String nama){
         for (Dosen d : dataDosen){
             if (d.getNama()== nama){
                 dataDosen.remove(d);

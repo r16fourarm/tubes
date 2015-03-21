@@ -11,4 +11,5 @@ package tubes;
  */
 public interface TabelOlahData {
     public abstract void viewAll();
+    public abstract void remove(String nama);
 }
