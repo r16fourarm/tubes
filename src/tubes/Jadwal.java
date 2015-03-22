@@ -9,21 +9,30 @@ package tubes;
  *
  * @author R16
  */
-import java.util.Calendar;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class Jadwal {
     private Kelas kelas;
     private MataKuliah matkul;
     private Dosen dosen;
     private RuangKelas ruang;
-    private Calendar cal;
+    private Date cal;
     private String kdJadwal;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, Calendar cal, String kdJadwal) {
+    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal) {
         this.kelas = kelas;
         this.matkul = matkul;
         this.dosen = dosen;
         this.ruang = ruang;
-        this.cal = cal;
+        try {
+            this.cal = formatter.parse(cal);
+        } catch (ParseException ex) {
+            Logger.getLogger(Jadwal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.kdJadwal = kdJadwal;
     }
 
@@ -43,7 +52,7 @@ public class Jadwal {
         return ruang;
     }
 
-    public Calendar getCal() {
+    public Date getCal() {
         return cal;
     }
 
