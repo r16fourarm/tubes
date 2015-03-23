@@ -35,10 +35,19 @@ public class Tubes {
         OlahDataRuang dr1 = new OlahDataRuang();
         dr1.addRuang(rk1);
         Jadwal j1 = new Jadwal(k1,mk1,d1,rk1,"21-Jun-1990","kd1");
+        Jadwal j2 = new Jadwal(k1,mk1,d2,rk1,"21-Jun-1990","kd2");
+        Jadwal j3 = new Jadwal(k1,mk1,d2,rk1,"31-Jul-1920","kd3");
+        Jadwal j4 = new Jadwal(k1,mk1,d2,rk1,"11-May-1920","kd4");
         OlahDataJadwal dj1 =  new OlahDataJadwal();
         dj1.addJadwal(j1);
         dj1.viewAll();
         dj1.viewAllJadwalSatuHari("21-Jun-1990");
+        dj1.addJadwal(j2);
+        dj1.addJadwal(j3);
+        dj1.addJadwal(j4);
+        System.out.println();
+        System.out.println(j1.getCal().getDate()+"||"+j3.getCal().getDate());
+        dj1.viewAll();
         
     }
     

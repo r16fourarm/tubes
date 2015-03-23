@@ -31,7 +31,7 @@ public class Jadwal {
         try {
             this.cal = formatter.parse(cal);
         } catch (ParseException ex) {
-            Logger.getLogger(Jadwal.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         this.kdJadwal = kdJadwal;
     }
