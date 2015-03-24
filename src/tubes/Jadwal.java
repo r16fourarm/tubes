@@ -35,7 +35,9 @@ public class Jadwal {
         }
         this.kdJadwal = kdJadwal;
     }
-
+    public boolean cekFull(RuangKelas r,Kelas k){
+        return (r.getnKapasitas()==k.getnKapasitas());
+    }
     public Kelas getKelas() {
         return kelas;
     }

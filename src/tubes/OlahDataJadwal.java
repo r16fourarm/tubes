@@ -14,8 +14,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 public class OlahDataJadwal implements TabelOlahData{
     private ArrayList<Jadwal> dataJadwal;
     DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
@@ -27,24 +25,19 @@ public class OlahDataJadwal implements TabelOlahData{
     public void addJadwal(Jadwal j){
         boolean status=false;
           for(Jadwal jd : dataJadwal){
-            if(j.getCal().getDate()==jd.getCal().getDate()){
-            status=true;
-                }
-            else{
-            status=false;
-                }
+            try {
+                status=cekWaktu(j,jd);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
             }
-        if(dataJadwal.isEmpty()){
+            }
+        if(dataJadwal.isEmpty()||!status){
             dataJadwal.add(j);
         }
         else{
-        if(status=true){
-            System.out.println("jadwal tsbt sudah diisi");
-        }
-        else{
-            dataJadwal.add(j);
-        }
-        }
+               System.out.println("jadwal tsbt sudah diisi");
+            }
+           
       }
     public void remove(String nama){
     for(Jadwal j : dataJadwal){
@@ -56,7 +49,12 @@ public class OlahDataJadwal implements TabelOlahData{
         }
         }
     }
-    
+    public boolean cekWaktu(Jadwal j,String tanggal) throws ParseException{
+        return (formatter.parse(tanggal).getDate() == j.getCal().getDate()&&formatter.parse(tanggal).getDay() == j.getCal().getDay()&&formatter.parse(tanggal).getYear() ==j.getCal().getYear()&&formatter.parse(tanggal).getHours() == j.getCal().getHours());
+    }
+    public boolean cekWaktu(Jadwal j,Jadwal jd) throws ParseException{
+        return (jd.getCal().getDate() == j.getCal().getDate()&&jd.getCal().getDay() == j.getCal().getDay()&&jd.getCal().getYear() ==j.getCal().getYear()&&jd.getCal().getHours() == j.getCal().getHours());
+    }
     public void viewAll(){
         for(Jadwal j : dataJadwal){
             System.out.println(j.getKdJadwal()+"||"+j.getKelas().getKdKelas()+"||"+j.getRuang().getKdRuang()+"||"+j.getDosen().getNama()+"||"+j.getMatkul().getNama()+"||"+formatter.format(j.getCal()));
@@ -65,17 +63,21 @@ public class OlahDataJadwal implements TabelOlahData{
     public void viewAllJadwalSatuHari(String tanggal) {
         for (Jadwal j : dataJadwal){
             try {
-                if(formatter.parse(tanggal).getDate() == j.getCal().getDate()){
+                if(cekWaktu(j,tanggal)){
                     System.out.println(j.getKelas().getKdKelas()+"||"+j.getRuang().getKdRuang()+"||"+j.getDosen().getNama()+"||"+j.getMatkul().getNama());
                 
                 }
+                else{
+                    System.out.println("tdk ad jdwl");
+                }
             } catch (ParseException ex) {
-                Logger.getLogger(OlahDataJadwal.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
             }
             
         }
     }
-}
+
     
     
 
