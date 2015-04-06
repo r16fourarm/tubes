@@ -51,7 +51,7 @@ public class Menu {
     }
 
     public void tampilMenuAwal() {
-        int pil = 0;
+        int pil;
         try {
             do {
                 System.out.println("====Course Scheduling====");
@@ -63,7 +63,7 @@ public class Menu {
                 System.out.println("Input pilihan : ");
                 pil = s.nextInt();
                 if (pil < 0 || pil > 3) {
-                    System.out.println("Input harus 1-3");
+                    System.out.println("Input harus 0-3");
                 }
                 switch (pil) {
                     case 0:
@@ -94,7 +94,7 @@ public class Menu {
             } while (pil != 3);
         } catch (InputMismatchException ie) {
             System.out.println("Input harus angka");
-        }finally{
+        } finally {
             s = new Scanner(System.in);
         }
     }
@@ -130,7 +130,7 @@ public class Menu {
         System.out.println("2.remove");
         System.out.println("3.viewall");
         System.out.println("4.Kembali");
-        System.out.println("input pilihan");
+        System.out.println("input pilihan   : ");
     }
 
     public void menuOlahDosen(int pil) {
@@ -152,6 +152,7 @@ public class Menu {
                 System.out.println("===ViewALLDosen==");
                 ODS.viewAll();
                 System.out.println("===ViewALLDosen==");
+                break;
 
         }
 
@@ -176,6 +177,7 @@ public class Menu {
                 System.out.println("===ViewALLMK==");
                 ODMK.viewAll();
                 System.out.println("===ViewALLMK==");
+                break;
 
         }
 
@@ -200,7 +202,7 @@ public class Menu {
                 System.out.println("===ViewALLDosen==");
                 ODR.viewAll();
                 System.out.println("===ViewALLDosen==");
-
+                break;
         }
     }
 
@@ -223,33 +225,46 @@ public class Menu {
                 System.out.println("===ViewALLDosen==");
                 ODK.viewAll();
                 System.out.println("===ViewALLDosen==");
+                break;
 
         }
     }
 
     public void olahmenuOlah(int pil) {
+        int pil1;
         try {
             do {
-                tampilanmenuOlah();
-                pil = s.nextInt();
-                if (pil < 1 || pil > 4) {
-                    System.out.println("Input harus 1-4");
-                }
                 switch (pil) {
                     case 1:
-                        menuOlahDosen(pil);
+                        do {
+                            tampilanmenuOlah();
+                            pil1 = s.nextInt();
+                            menuOlahDosen(pil1);
+                        } while (pil1 != 4);
                         break;
                     case 2:
-                        menuOlahMK(pil);
+                        do {
+                            tampilanmenuOlah();
+                            pil1 = s.nextInt();
+                            menuOlahMK(pil1);
+                        } while (pil1 != 4);
                         break;
                     case 3:
-                        menuOlahRuang(pil);
+                        do {
+                            tampilanmenuOlah();
+                            pil1 = s.nextInt();
+                            menuOlahRuang(pil1);
+                        } while (pil1 != 4);
                         break;
                     case 4:
-                        menuOlahKelas(pil);
+                        do {
+                            tampilanmenuOlah();
+                            pil1 = s.nextInt();
+                            menuOlahKelas(pil1);
+                        } while (pil1 != 4);
                         break;
                 }
-            } while (pil != 4);
+            } while (pil != 5);
 
         } catch (InputMismatchException IE) {
             System.out.println("Input Harus Angka");
