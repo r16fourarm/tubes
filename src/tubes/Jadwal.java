@@ -24,6 +24,8 @@ public class Jadwal {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
     public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal) {
+        if(cekFull(ruang,kelas)){
+            
         this.kelas = kelas;
         this.matkul = matkul;
         this.dosen = dosen;
@@ -34,9 +36,12 @@ public class Jadwal {
             ex.printStackTrace();
         }
         this.kdJadwal = kdJadwal;
+        }
+        else
+            System.out.println("Jadwal tidak dapat dibuat");
     }
     public boolean cekFull(RuangKelas r,Kelas k){
-        return (r.getnKapasitas()==k.getnKapasitas());
+        return (r.getnKapasitas()>=k.getnKapasitas());
     }
     public Kelas getKelas() {
         return kelas;

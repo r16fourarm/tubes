@@ -21,8 +21,10 @@ public class OlahDataDosen implements TabelOlahData{
     }
     public void remove(String nama){
         for (Dosen d : dataDosen){
-            if (d.getNama()== nama){
-                dataDosen.remove(d);
+            if (d.getNama().equals(nama)){
+                ArrayList<Dosen>tmpdosen = new ArrayList<Dosen>(dataDosen);
+                tmpdosen.remove(d);
+                dataDosen=tmpdosen;
             }
             else
             {

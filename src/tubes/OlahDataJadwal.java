@@ -41,7 +41,7 @@ public class OlahDataJadwal implements TabelOlahData{
       }
     public void remove(String nama){
     for(Jadwal j : dataJadwal){
-        if(j.getKdJadwal()==nama){
+        if(j.getKdJadwal().equals(nama)){
             dataJadwal.remove(j);
         }
         else{

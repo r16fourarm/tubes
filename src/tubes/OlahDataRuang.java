@@ -21,7 +21,7 @@ public class OlahDataRuang implements TabelOlahData{
     }
     public void remove(String nama){
         for(RuangKelas r : dataRuang){
-            if(r.getKdRuang()==nama){
+            if(r.getKdRuang().equals(nama)){
                 dataRuang.remove(r);
             }
             else{

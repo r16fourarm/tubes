@@ -21,8 +21,10 @@ public class OlahDataMataKuliah implements TabelOlahData{
     }
     public void remove(String nama){
         for (MataKuliah mk : dataMk){
-            if(mk.getNama()==nama){
-                dataMk.remove(mk);
+            if(mk.getNama().equals(nama)){
+                ArrayList<MataKuliah>tmpmk = new ArrayList<MataKuliah>(dataMk);
+                tmpmk.remove(mk);
+                dataMk=tmpmk;
             }
             else{
                 System.out.println("data tidak ditemukan");
