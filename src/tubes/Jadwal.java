@@ -21,15 +21,17 @@ public class Jadwal {
     private RuangKelas ruang;
     private Date cal;
     private String kdJadwal;
+    private int shift;
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal) {
-        if(cekFull(ruang,kelas)){
+    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal,int shift) {
+        if(cekFull(ruang,kelas)||(shift<1||shift>6)){
             
         this.kelas = kelas;
         this.matkul = matkul;
         this.dosen = dosen;
         this.ruang = ruang;
+        this.shift = shift;
         try {
             this.cal = formatter.parse(cal);
         } catch (ParseException ex) {
@@ -65,6 +67,10 @@ public class Jadwal {
 
     public String getKdJadwal() {
         return kdJadwal;
+    }
+
+    public int getShift() {
+        return shift;
     }
     
 }

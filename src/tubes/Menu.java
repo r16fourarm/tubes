@@ -9,16 +9,24 @@ package tubes;
  *
  * @author R16
  */
+import java.text.ParseException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Menu {
 
-    private OlahDataDosen ODS = new OlahDataDosen();
+    private OlahDataDosen ods = new OlahDataDosen();
     private OlahDataMataKuliah ODMK = new OlahDataMataKuliah();
     private OlahDataRuang ODR = new OlahDataRuang();
-    private OlahDataKelas ODK = new OlahDataKelas();
-    private Scanner s;
+    private OlahDataKelas odk = new OlahDataKelas();
+    private OlahDataJadwal odj = new OlahDataJadwal();
+    private Scanner s = null;
+    private Dosen cd = null;
+    private MataKuliah cmk = null;
+    private RuangKelas crk = null;
+    private Kelas ck;
     private String username, password;
     private boolean StatusUser = true;
     private String loginMessage = "Anda belum loginn";
@@ -62,6 +70,7 @@ public class Menu {
                 System.out.println("3.Exit");
                 System.out.println("Input pilihan : ");
                 pil = s.nextInt();
+                System.out.println("============");
                 if (pil < 0 || pil > 3) {
                     System.out.println("Input harus 0-3");
                 }
@@ -83,12 +92,7 @@ public class Menu {
                         menuOlahData();
                         break;
                     case 2:
-                        System.out.println("1.input jadwal");
-                        System.out.println("2.view jadwal 1 hari");
-                        System.out.println("3.view jadwal 1 minggu");
-                        System.out.println("4.view jadwal 1 bulan");
-                        System.out.println("5.view jadwal 1 tahun");
-                        System.out.println("6.view jadwal spesifik");
+                        menuOlahJadwal();
                         break;
                 }
             } while (pil != 3);
@@ -96,6 +100,124 @@ public class Menu {
             System.out.println("Input harus angka");
         } finally {
             s = new Scanner(System.in);
+        }
+        
+    }
+
+    public void menuOlahJadwal() {
+        int pil = 0;
+        do {
+            System.out.println("1.input jadwal");
+            System.out.println("2.view jadwal semua");
+            System.out.println("3.view jadwal 1 hari");
+            System.out.println("4.view jadwal 1 bulan");
+            System.out.println("5.view jadwal spesifik");
+            System.out.println("6.Kembali");
+            System.out.println("Input pilihan  : ");
+            pil = s.nextInt();
+            if (pil < 1 && pil > 6) {
+                System.out.println("input hrus 1-6");
+            } else {
+                OlahMenuJadwal(pil);
+            }
+        } while (pil != 7);
+    }
+
+    public void OlahMenuJadwal(int pil) {
+        switch (pil) {
+            case 1:
+                inputJadwal();
+                break;
+            case 2:
+                odj.viewAll();
+                break;
+            case 3:
+                    System.out.println("masukkan tanggal yang mau dilihat jadwalnya");
+                    String tgl = s.next();
+                    odj.viewAllJadwalSatuHari(tgl);
+            case 4:
+                    System.out.println("masukkan bulan yang mau diliat jadwalnya");
+                    int bln = s.nextInt();
+                    odj.viewAllJadwalSatuBulan(bln);
+                   
+        }
+    }
+
+    public void inputJadwal() {
+        char ag = 0;
+        Jadwal jtmp = null;
+        do {
+            System.out.println("++INPUT JADWAL++");
+            inputToJadwal();
+            System.out.println("Input Waktu : ");
+            String tgl = s.next();
+            System.out.println("Input Shift : ");
+            int shift = s.nextInt();
+            try {
+                jtmp = odj.cariJadwal(tgl, shift);
+            } catch (ParseException ex) {
+                System.out.println(ex);
+            }
+            if (jtmp == null) {
+                System.out.println("kode jadwal : ");
+                String kj = s.next();
+                if (ck == null || crk == null || cmk == null || cd == null) {
+                    System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
+                } else {
+                    Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
+                }
+            } else {
+                System.out.println("maaf jadwal pada waktu tsbt telah diisii");
+            }
+            System.out.println("masih mau input jadwal");
+        } while (ag != 'n');
+
+    }
+
+    public void inputToJadwal() {
+        System.out.println("masukkan Kelas : ");
+        String kdKelas = s.next();
+        Kelas k = odk.cariKelas(kdKelas);
+        if (k == null) {
+            System.out.println("Kelas tidak ada mohon dicek kembali");
+        } else {
+            ck = k;
+            inputMKtoJadwal();
+        }
+    }
+
+    public void inputMKtoJadwal() {
+        System.out.println("masukkan kode MataKuliah : ");
+        String kdMK = s.next();
+        MataKuliah mk = ODMK.cariMK(kdMK);
+        if (mk == null) {
+            System.out.println("MK tidak ada mohon cek kembali");
+        } else {
+            cmk = mk;
+            inputDosentoJadwal();
+        }
+    }
+
+    public void inputDosentoJadwal() {
+        System.out.println("Masukkan kode dosen : ");
+        String kdDosen = s.next();
+        Dosen d = ods.cariDosen(kdDosen);
+        if (d == null) {
+            System.out.println("Dosen tdk ada mohon dicek kmbali");
+        } else {
+            cd = d;
+            inputRuangtoJadwal();
+        }
+    }
+
+    public void inputRuangtoJadwal() {
+        System.out.println("Masukkan kdRuangan");
+        String kdRuang = s.next();
+        RuangKelas rk = ODR.cariRuang(kdRuang);
+        if (rk == null) {
+            System.out.println("Ruangan tdk ada mohon dicek kembali");
+        } else {
+            crk = rk;
         }
     }
 
@@ -141,16 +263,16 @@ public class Menu {
                 System.out.println("kd dosen : ");
                 String in1 = s.next();
                 Dosen d = new Dosen(in, in1);
-                ODS.addDosen(d);
+                ods.addDosen(d);
                 break;
             case 2:
                 System.out.println("masukkan nama dosen yg mau dihapus : ");
                 String in2 = s.next();
-                ODS.remove(in2);
+                ods.remove(in2);
                 break;
             case 3:
                 System.out.println("===ViewALLDosen==");
-                ODS.viewAll();
+                ods.viewAll();
                 System.out.println("===ViewALLDosen==");
                 break;
 
@@ -214,16 +336,16 @@ public class Menu {
                 System.out.println("kapasitas : ");
                 int in1 = s.nextInt();
                 Kelas k = new Kelas(in, in1);
-                ODK.addKelas(k);
+                odk.addKelas(k);
                 break;
             case 2:
                 System.out.println("masukkan kd kelas yg mau dihapus : ");
                 String in2 = s.next();
-                ODK.remove(in2);
+                odk.remove(in2);
                 break;
             case 3:
                 System.out.println("===ViewALLDosen==");
-                ODK.viewAll();
+                odk.viewAll();
                 System.out.println("===ViewALLDosen==");
                 break;
 
@@ -233,39 +355,36 @@ public class Menu {
     public void olahmenuOlah(int pil) {
         int pil1;
         try {
-            do {
-                switch (pil) {
-                    case 1:
-                        do {
-                            tampilanmenuOlah();
-                            pil1 = s.nextInt();
-                            menuOlahDosen(pil1);
-                        } while (pil1 != 4);
-                        break;
-                    case 2:
-                        do {
-                            tampilanmenuOlah();
-                            pil1 = s.nextInt();
-                            menuOlahMK(pil1);
-                        } while (pil1 != 4);
-                        break;
-                    case 3:
-                        do {
-                            tampilanmenuOlah();
-                            pil1 = s.nextInt();
-                            menuOlahRuang(pil1);
-                        } while (pil1 != 4);
-                        break;
-                    case 4:
-                        do {
-                            tampilanmenuOlah();
-                            pil1 = s.nextInt();
-                            menuOlahKelas(pil1);
-                        } while (pil1 != 4);
-                        break;
-                }
-            } while (pil != 5);
-
+            switch (pil) {
+                case 1:
+                    do {
+                        tampilanmenuOlah();
+                        pil1 = s.nextInt();
+                        menuOlahDosen(pil1);
+                    } while (pil1 != 4);
+                    break;
+                case 2:
+                    do {
+                        tampilanmenuOlah();
+                        pil1 = s.nextInt();
+                        menuOlahMK(pil1);
+                    } while (pil1 != 4);
+                    break;
+                case 3:
+                    do {
+                        tampilanmenuOlah();
+                        pil1 = s.nextInt();
+                        menuOlahRuang(pil1);
+                    } while (pil1 != 4);
+                    break;
+                case 4:
+                    do {
+                        tampilanmenuOlah();
+                        pil1 = s.nextInt();
+                        menuOlahKelas(pil1);
+                    } while (pil1 != 4);
+                    break;
+            }
         } catch (InputMismatchException IE) {
             System.out.println("Input Harus Angka");
         } finally {

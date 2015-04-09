@@ -10,30 +10,49 @@ package tubes;
  * @author R16
  */
 import java.util.ArrayList;
-public class OlahDataRuang implements TabelOlahData{
+
+public class OlahDataRuang implements TabelOlahData {
+
     private ArrayList<RuangKelas> dataRuang;
 
     public OlahDataRuang() {
         dataRuang = new ArrayList<RuangKelas>();
     }
-    public void addRuang(RuangKelas r){
+
+    public void addRuang(RuangKelas r) {
         dataRuang.add(r);
     }
-    public void remove(String nama){
-        for(RuangKelas r : dataRuang){
-            if(r.getKdRuang().equals(nama)){
-                dataRuang.remove(r);
-            }
-            else{
+
+    public void remove(String nama) {
+        for (RuangKelas r : dataRuang) {
+            if (r.getKdRuang().equals(nama)) {
+                ArrayList<RuangKelas> tmprk = new ArrayList<RuangKelas>(dataRuang);
+                tmprk.remove(r);
+                dataRuang = tmprk;
+            } else {
                 System.out.println("data tidak ditemukan");
                 break;
             }
         }
     }
-    public void viewAll(){
-        for(RuangKelas r : dataRuang){
+
+    public RuangKelas cariRuang(String nama) {
+        RuangKelas rkx = null;
+        for (RuangKelas r : dataRuang) {
+            if (r.getKdRuang().equals(nama)) {
+                rkx = r;
+            } else {
+                rkx = null;
+                break;
+            }
+        }
+        return rkx;
+    }
+
+    public void viewAll() {
+        for (RuangKelas r : dataRuang) {
             System.out.println(r.getKdRuang());
         }
     }
-    
+
 }

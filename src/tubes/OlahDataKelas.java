@@ -39,6 +39,18 @@ public class OlahDataKelas implements TabelOlahData{
             }
         }
     }
+    public Kelas cariKelas(String kdkelas){
+        Kelas  km = null;
+        for(Kelas k :dataKelas){
+            if(k.getKdKelas().equals(kdkelas)){
+                km=k;
+            }
+            else{
+                km=null;
+            }
+        }
+        return km;
+    }
     /**
      * Menampilkan seluruh data Kelas yang ada di dalam kelas
      */

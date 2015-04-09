@@ -32,6 +32,18 @@ public class OlahDataMataKuliah implements TabelOlahData{
             }
         }
     }
+    public MataKuliah cariMK(String nama){
+        MataKuliah mkx = null;
+        for(MataKuliah mk : dataMk){
+            if(mk.getKdMk().equals(nama)){
+                mkx = mk;
+            }
+            else{
+                mkx =null;
+            }
+        }
+        return mkx;
+    }
     public void viewAll(){
         for(MataKuliah mk : dataMk){
             System.out.println(mk.getNama());
