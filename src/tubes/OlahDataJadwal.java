@@ -89,6 +89,7 @@ public class OlahDataJadwal implements TabelOlahData {
             if (formatter.parse(tanggal).equals(j.getCal()) && shift == j.getShift()) {
                 if (j.getDosen().getKdDosen().equals(kdDosen) && j.getKelas().getKdKelas().equals(kdKelas) && j.getRuang().getKdRuang().equals(kdRuang)) {
                     jx = j;
+                    break;
                 } else {
                     jx = null;
                 }

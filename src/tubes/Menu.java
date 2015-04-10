@@ -9,17 +9,18 @@ package tubes;
  *
  * @author R16
  */
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Menu {
 
     private OlahDataDosen ods = new OlahDataDosen();
-    private OlahDataMataKuliah ODMK = new OlahDataMataKuliah();
-    private OlahDataRuang ODR = new OlahDataRuang();
+    private OlahDataMataKuliah odmk = new OlahDataMataKuliah();
+    private OlahDataRuang odr = new OlahDataRuang();
     private OlahDataKelas odk = new OlahDataKelas();
     private OlahDataJadwal odj = new OlahDataJadwal();
     private Scanner s = null;
@@ -28,10 +29,28 @@ public class Menu {
     private RuangKelas crk = null;
     private Kelas ck;
     private String username, password;
-    private boolean StatusUser = true;
+    private boolean statusLogin = false;
+    private boolean statusUser = true;
+    private boolean statusInput = true;
     private String loginMessage = "Anda belum loginn";
-
+    DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+    Dosen d1 = new Dosen("Pak Andit","ADN");
+    Dosen d2 = new Dosen("Pak Dody","DQR");
+    MataKuliah mk1 =  new MataKuliah("Pemograman Berbasis Objek","PBO");
+    MataKuliah mk2 =  new MataKuliah("Algoritma Struktur Data","ASD");
+    Kelas k1 = new Kelas("SK3702",40);
+    Kelas k2 = new Kelas("IF3706",40);
+    RuangKelas rk1 = new RuangKelas("A103",40);
+    RuangKelas rk2 = new RuangKelas("A102", 40);
     public Menu() {
+        ods.addDosen(d1);
+        ods.addDosen(d2);
+        odk.addKelas(k1);
+        odk.addKelas(k2);
+        odmk.addMataKuliah(mk1);
+        odmk.addMataKuliah(mk2);
+        odr.addRuang(rk1);
+        odr.addRuang(rk2);
         s = new Scanner(System.in);
     }
 
@@ -39,15 +58,25 @@ public class Menu {
         this.username = username;
         this.password = password;
         if ("PPDU".equals(this.username) && "ppdu".equals(this.password)) {
-            StatusUser = true;
+            statusUser = true;
             loginMessage = "PPDU,selamat datang";
+            statusLogin = true;
         } else {
-            StatusUser = false;
+            statusUser = false;
             loginMessage = "Guest,selamat datang";
+            statusLogin = true;
         }
         if (this.username == null && this.password == null) {
             throw new RuntimeException("inputan tidak boleh kosong");
         }
+    }
+
+    public void userLogout() {
+        System.out.println("");
+        this.username = null;
+        this.password = null;
+        loginMessage = "anda belum login";
+        statusLogin = false;
     }
 
     public boolean cekStatusLogin() {
@@ -68,7 +97,7 @@ public class Menu {
                 System.out.println("Status Login : " + loginMessage);
                 System.out.println("1.Olah Data");
                 System.out.println("2.Olah Jadwal");
-                System.out.println("3.Exit");
+                System.out.println("3.LOGOUT");
                 System.out.println("Input pilihan : ");
                 pil = s.nextInt();
                 System.out.println("============");
@@ -90,10 +119,21 @@ public class Menu {
                         }
                         break;
                     case 1:
-                        menuOlahData();
+                        if (statusLogin == true && statusUser == true) {
+                            menuOlahData();
+                        } else {
+                            System.out.println("anda harus login dan anda harus PPDU");
+                        }
                         break;
                     case 2:
-                        menuOlahJadwal();
+                        if (statusLogin == true) {
+                            menuOlahJadwal();
+                        } else {
+                            System.out.println("anda harus login");
+                        }
+                        break;
+                    case 3:
+                        userLogout();
                         break;
                 }
             } catch (InputMismatchException ie) {
@@ -101,7 +141,7 @@ public class Menu {
             } finally {
                 s = new Scanner(System.in);
             }
-        } while (pil != 3);
+        } while (pil != 4);
 
     }
 
@@ -115,7 +155,13 @@ public class Menu {
             System.out.println("5.view jadwal spesifik");
             System.out.println("6.Kembali");
             System.out.println("Input pilihan  : ");
-            pil = s.nextInt();
+            try {
+                pil = s.nextInt();
+            } catch (InputMismatchException ime) {
+                System.out.println("input harus angka");
+            } finally {
+                s = new Scanner(System.in);
+            }
             System.out.println("============");
             if (pil < 1 && pil > 6) {
                 System.out.println("input hrus 1-6");
@@ -150,27 +196,37 @@ public class Menu {
         Jadwal jtmp = null;
         do {
             System.out.println("++INPUT JADWAL++");
-            inputToJadwal();
-            System.out.println("Input Waktu : ");
-            String tgl = s.next();
-            System.out.println("Input Shift : ");
-            int shift = s.nextInt();
-            try {
-                if (odj.cariJadwal(tgl, shift,cd.getKdDosen(), ck.getKdKelas(), crk.getKdRuang()) == null) {
-                    System.out.println("kode jadwal : ");
-                    String kj = s.next();
-                    if (ck == null || crk == null || cmk == null || cd == null) {
-                        System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
+            inputToJadwal();      
+                System.out.println("Input Waktu : ");
+                String tgl = s.next();
+                Date skrg = new Date();
+                try {
+                    if (skrg.getTime() < formatter.parse(tgl).getTime()) {
+                        System.out.println("Input Shift : ");
+
+                        int shift = s.nextInt();
+                        try {
+                            if (odj.cariJadwal(tgl, shift, cd.getKdDosen(), ck.getKdKelas(), crk.getKdRuang()) == null) {
+                                System.out.println("kode jadwal : ");
+                                String kj = s.next();
+                                if (ck == null || crk == null || cmk == null || cd == null) {
+                                    System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
+                                } else {
+                                    Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
+                                    odj.addJadwal(j);
+                                }
+                            } else {
+                                System.out.println("maaf jadwal pada waktu tsbt telah diisii");
+                            }
+                        } catch (ParseException ex) {
+                            System.out.println("format tanggal salah");
+                        }
                     } else {
-                        Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
-                        odj.addJadwal(j);
+                        System.out.println("tidak bsa input dibawah tanggal skrg");
                     }
-                } else {
-                    System.out.println("maaf jadwal pada waktu tsbt telah diisii");
+                } catch (ParseException pe) {
+                    System.out.println("format salah");
                 }
-            } catch (ParseException ex) {
-                System.out.println("format tanggal salah");
-            }
             System.out.println("masih mau input jadwal ?");
             ag = s.next().charAt(0);
         } while (ag != 'n');
@@ -192,9 +248,10 @@ public class Menu {
     public void inputMKtoJadwal() {
         System.out.println("masukkan kode MataKuliah : ");
         String kdMK = s.next();
-        MataKuliah mk = ODMK.cariMK(kdMK);
+        MataKuliah mk = odmk.cariMK(kdMK);
         if (mk == null) {
             System.out.println("MK tidak ada mohon cek kembali");
+            statusInput = false;
         } else {
             cmk = mk;
             inputDosentoJadwal();
@@ -207,6 +264,7 @@ public class Menu {
         Dosen d = ods.cariDosen(kdDosen);
         if (d == null) {
             System.out.println("Dosen tdk ada mohon dicek kmbali");
+            statusInput = false;
         } else {
             cd = d;
             inputRuangtoJadwal();
@@ -216,9 +274,10 @@ public class Menu {
     public void inputRuangtoJadwal() {
         System.out.println("Masukkan kdRuangan");
         String kdRuang = s.next();
-        RuangKelas rk = ODR.cariRuang(kdRuang);
+        RuangKelas rk = odr.cariRuang(kdRuang);
         if (rk == null) {
             System.out.println("Ruangan tdk ada mohon dicek kembali");
+            statusInput = false;
         } else {
             crk = rk;
         }
@@ -293,16 +352,16 @@ public class Menu {
                 System.out.println("kd mk : ");
                 String in1 = s.next();
                 MataKuliah mk = new MataKuliah(in, in1);
-                ODMK.addMataKuliah(mk);
+                odmk.addMataKuliah(mk);
                 break;
             case 2:
                 System.out.println("masukkan nama mk yg mau dihapus : ");
                 String in2 = s.next();
-                ODMK.remove(in2);
+                odmk.remove(in2);
                 break;
             case 3:
                 System.out.println("===ViewALLMK==");
-                ODMK.viewAll();
+                odmk.viewAll();
                 System.out.println("===ViewALLMK==");
                 break;
 
@@ -318,16 +377,16 @@ public class Menu {
                 System.out.println("kapasitas ruangan : ");
                 int in1 = s.nextInt();
                 RuangKelas rk = new RuangKelas(in, in1);
-                ODR.addRuang(rk);
+                odr.addRuang(rk);
                 break;
             case 2:
                 System.out.println("masukkan kd ruang yg mau dihapus : ");
                 String in2 = s.next();
-                ODR.remove(in2);
+                odr.remove(in2);
                 break;
             case 3:
                 System.out.println("===ViewALLRuang==");
-                ODR.viewAll();
+                odr.viewAll();
                 System.out.println("===ViewALLRuang==");
                 break;
         }
