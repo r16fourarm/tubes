@@ -24,15 +24,20 @@ public class OlahDataRuang implements TabelOlahData {
     }
 
     public void remove(String nama) {
+        RuangKelas rkx =null;
         for (RuangKelas r : dataRuang) {
             if (r.getKdRuang().equals(nama)) {
-                ArrayList<RuangKelas> tmprk = new ArrayList<RuangKelas>(dataRuang);
-                tmprk.remove(r);
-                dataRuang = tmprk;
-            } else {
-                System.out.println("data tidak ditemukan");
+                rkx=r;
                 break;
+            } else {
+                rkx=null;
             }
+        }
+        if(rkx==null){
+            System.out.println("data tidak ada");
+        }else{
+            dataRuang.remove(rkx);
+            System.out.println("data telah dihapus");
         }
     }
 
@@ -41,9 +46,10 @@ public class OlahDataRuang implements TabelOlahData {
         for (RuangKelas r : dataRuang) {
             if (r.getKdRuang().equals(nama)) {
                 rkx = r;
+                break;
             } else {
                 rkx = null;
-                break;
+                
             }
         }
         return rkx;

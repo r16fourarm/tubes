@@ -43,12 +43,19 @@ public class OlahDataJadwal implements TabelOlahData {
     }
 
     public void remove(String nama) {
+        Jadwal jx =null;
         for (Jadwal j : dataJadwal) {
             if (j.getKdJadwal().equals(nama)) {
-                dataJadwal.remove(j);
+                jx=j;
             } else {
-                System.out.println("Data tidak ditemukan");
+                jx=null;
             }
+        }
+        if(jx==null){
+            System.out.println("jadwal tidak ada");
+        }else{
+            dataJadwal.remove(jx);
+            System.out.println("data telah dihapus");
         }
     }
 
@@ -62,6 +69,9 @@ public class OlahDataJadwal implements TabelOlahData {
 
     public boolean cekWaktu(Jadwal j, int bulan) {
         return (j.getCal().getMonth() == bulan);
+    }
+    public boolean cekWaktu(Jadwal j,String tanggal,String shift){
+        return j.getCal().compareTo(null)
     }
 
     public Jadwal cariJadwal(String tanggal, int shift) throws ParseException {
@@ -106,6 +116,11 @@ public class OlahDataJadwal implements TabelOlahData {
             } else {
                 System.out.println("tdk ad jdwal");
             }
+        }
+    }
+    public void viewJadwalSpesifik(String tanggal,String shift){
+        for(Jadwal j: dataJadwal){
+            if()
         }
     }
 }
