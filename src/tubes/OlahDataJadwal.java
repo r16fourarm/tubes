@@ -14,6 +14,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class OlahDataJadwal implements TabelOlahData {
 
@@ -26,34 +29,30 @@ public class OlahDataJadwal implements TabelOlahData {
     }
 
     public void addJadwal(Jadwal j) {
-        boolean status = false;
-        for (Jadwal jd : dataJadwal) {
-            try {
-                status = cekWaktu(j, jd);
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if (dataJadwal.isEmpty() || !status) {
-            dataJadwal.add(j);
-        } else {
-            System.out.println("jadwal tsbt sudah diisi");
-        }
-
+        dataJadwal.add(j);
+         Collections.sort(dataJadwal, new Comparator<Jadwal>() {
+                @Override
+                public int compare(Jadwal j1, Jadwal j2) {
+                    if (j1.getCal() == null || j2.getCal() == null) {
+                        return 0;
+                    }
+                    return j1.getCal().compareTo(j2.getCal());
+                }
+            });
     }
 
     public void remove(String nama) {
-        Jadwal jx =null;
+        Jadwal jx = null;
         for (Jadwal j : dataJadwal) {
             if (j.getKdJadwal().equals(nama)) {
-                jx=j;
+                jx = j;
             } else {
-                jx=null;
+                jx = null;
             }
         }
-        if(jx==null){
+        if (jx == null) {
             System.out.println("jadwal tidak ada");
-        }else{
+        } else {
             dataJadwal.remove(jx);
             System.out.println("data telah dihapus");
         }
@@ -70,15 +69,29 @@ public class OlahDataJadwal implements TabelOlahData {
     public boolean cekWaktu(Jadwal j, int bulan) {
         return (j.getCal().getMonth() == bulan);
     }
-    public boolean cekWaktu(Jadwal j,String tanggal,String shift){
-        return j.getCal().compareTo(null)
-    }
 
+//kondisi dosen,ruang,kelas#overload untuk menu
     public Jadwal cariJadwal(String tanggal, int shift) throws ParseException {
         Jadwal jx = null;
         for (Jadwal j : dataJadwal) {
             if (formatter.parse(tanggal).equals(j.getCal()) && shift == j.getShift()) {
                 jx = j;
+            } else {
+                jx = null;
+            }
+        }
+        return jx;
+    }
+
+    public Jadwal cariJadwal(String tanggal, int shift, String kdDosen, String kdKelas, String kdRuang) throws ParseException {
+        Jadwal jx = null;
+        for (Jadwal j : dataJadwal) {
+            if (formatter.parse(tanggal).equals(j.getCal()) && shift == j.getShift()) {
+                if (j.getDosen().getKdDosen().equals(kdDosen) && j.getKelas().getKdKelas().equals(kdKelas) && j.getRuang().getKdRuang().equals(kdRuang)) {
+                    jx = j;
+                } else {
+                    jx = null;
+                }
             } else {
                 jx = null;
             }
@@ -118,9 +131,5 @@ public class OlahDataJadwal implements TabelOlahData {
             }
         }
     }
-    public void viewJadwalSpesifik(String tanggal,String shift){
-        for(Jadwal j: dataJadwal){
-            if()
-        }
-    }
+
 }

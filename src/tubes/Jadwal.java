@@ -12,8 +12,6 @@ package tubes;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 public class Jadwal {
     private Kelas kelas;
     private MataKuliah matkul;
@@ -40,7 +38,7 @@ public class Jadwal {
         this.kdJadwal = kdJadwal;
         }
         else
-            System.out.println("Jadwal tidak dapat dibuat");
+            System.out.println("Jadwal tidak dapat dibuat karena over kapasitas/melebihi shift");
     }
     public boolean cekFull(RuangKelas r,Kelas k){
         return (r.getnKapasitas()>=k.getnKapasitas());

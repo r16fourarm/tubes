@@ -51,6 +51,7 @@ public class OlahDataMataKuliah implements TabelOlahData {
         for (MataKuliah mk : dataMk) {
             if (mk.getKdMk().equals(kdMk)) {
                 mkx = mk;
+                break;
             } else {
                 mkx = null;
             }

@@ -156,22 +156,22 @@ public class Menu {
             System.out.println("Input Shift : ");
             int shift = s.nextInt();
             try {
-                jtmp = odj.cariJadwal(tgl, shift);
-            } catch (ParseException ex) {
-                System.out.println(ex);
-            }
-            if (jtmp == null) {
-                System.out.println("kode jadwal : ");
-                String kj = s.next();
-                if (ck == null || crk == null || cmk == null || cd == null) {
-                    System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
+                if (odj.cariJadwal(tgl, shift,cd.getKdDosen(), ck.getKdKelas(), crk.getKdRuang()) == null) {
+                    System.out.println("kode jadwal : ");
+                    String kj = s.next();
+                    if (ck == null || crk == null || cmk == null || cd == null) {
+                        System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
+                    } else {
+                        Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
+                        odj.addJadwal(j);
+                    }
                 } else {
-                    Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
+                    System.out.println("maaf jadwal pada waktu tsbt telah diisii");
                 }
-            } else {
-                System.out.println("maaf jadwal pada waktu tsbt telah diisii");
+            } catch (ParseException ex) {
+                System.out.println("format tanggal salah");
             }
-            System.out.println("masih mau input jadwal");
+            System.out.println("masih mau input jadwal ?");
             ag = s.next().charAt(0);
         } while (ag != 'n');
 
