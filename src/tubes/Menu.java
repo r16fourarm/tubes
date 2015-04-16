@@ -34,14 +34,16 @@ public class Menu {
     private boolean statusInput = true;
     private String loginMessage = "Anda belum loginn";
     DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-    Dosen d1 = new Dosen("Pak Andit","ADN");
-    Dosen d2 = new Dosen("Pak Dody","DQR");
-    MataKuliah mk1 =  new MataKuliah("Pemograman Berbasis Objek","PBO");
-    MataKuliah mk2 =  new MataKuliah("Algoritma Struktur Data","ASD");
-    Kelas k1 = new Kelas("SK3702",40);
-    Kelas k2 = new Kelas("IF3706",40);
-    RuangKelas rk1 = new RuangKelas("A103",40);
+    Dosen d1 = new Dosen("Pak Andit", "ADN");
+    Dosen d2 = new Dosen("Pak Dody", "DQR");
+    MataKuliah mk1 = new MataKuliah("Pemograman Berbasis Objek", "PBO");
+    MataKuliah mk2 = new MataKuliah("Algoritma Struktur Data", "ASD");
+    Kelas k1 = new Kelas("SK3702", 40);
+    Kelas k2 = new Kelas("IF3706", 40);
+    RuangKelas rk1 = new RuangKelas("A103", 40);
     RuangKelas rk2 = new RuangKelas("A102", 40);
+    RuangKelas rk3 = new RuangKelas("A104", 20);
+
     public Menu() {
         ods.addDosen(d1);
         ods.addDosen(d2);
@@ -51,6 +53,7 @@ public class Menu {
         odmk.addMataKuliah(mk2);
         odr.addRuang(rk1);
         odr.addRuang(rk2);
+        odr.addRuang(rk3);
         s = new Scanner(System.in);
     }
 
@@ -141,7 +144,7 @@ public class Menu {
             } finally {
                 s = new Scanner(System.in);
             }
-        } while (pil != 4);
+        } while (pil != 5);
 
     }
 
@@ -152,8 +155,7 @@ public class Menu {
             System.out.println("2.view jadwal semua");
             System.out.println("3.view jadwal 1 hari");
             System.out.println("4.view jadwal 1 bulan");
-            System.out.println("5.view jadwal spesifik");
-            System.out.println("6.Kembali");
+            System.out.println("5.Kembali");
             System.out.println("Input pilihan  : ");
             try {
                 pil = s.nextInt();
@@ -163,12 +165,12 @@ public class Menu {
                 s = new Scanner(System.in);
             }
             System.out.println("============");
-            if (pil < 1 && pil > 6) {
-                System.out.println("input hrus 1-6");
+            if (pil < 1 && pil > 5) {
+                System.out.println("input hrus 1-5");
             } else {
                 OlahMenuJadwal(pil);
             }
-        } while (pil != 6);
+        } while (pil != 5);
     }
 
     public void OlahMenuJadwal(int pil) {
@@ -183,20 +185,22 @@ public class Menu {
                 System.out.println("masukkan tanggal yang mau dilihat jadwalnya");
                 String tgl = s.next();
                 odj.viewAllJadwalSatuHari(tgl);
+                break;
             case 4:
                 System.out.println("masukkan bulan yang mau diliat jadwalnya");
                 int bln = s.nextInt();
                 odj.viewAllJadwalSatuBulan(bln);
-
+                break;
         }
     }
 
     public void inputJadwal() {
-        char ag = 0;
+        String ag = null;
         Jadwal jtmp = null;
         do {
             System.out.println("++INPUT JADWAL++");
-            inputToJadwal();      
+            inputToJadwal();
+            if (statusInput) {
                 System.out.println("Input Waktu : ");
                 String tgl = s.next();
                 Date skrg = new Date();
@@ -212,8 +216,14 @@ public class Menu {
                                 if (ck == null || crk == null || cmk == null || cd == null) {
                                     System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
                                 } else {
-                                    Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
-                                    odj.addJadwal(j);
+                                    if (ck.getnKapasitas() > crk.getnKapasitas()) {
+                                        System.out.println("Kapasitas ruang kelas tidak mencukupi untuk ditempati kelas");
+                                    } else if (shift < 1 || shift > 6) {
+                                        System.out.println("shift hanya ada 6");
+                                    } else {
+                                        Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
+                                        odj.addJadwal(j);
+                                    }
                                 }
                             } else {
                                 System.out.println("maaf jadwal pada waktu tsbt telah diisii");
@@ -227,9 +237,12 @@ public class Menu {
                 } catch (ParseException pe) {
                     System.out.println("format salah");
                 }
+            } else {
+                System.out.println("ada kesalahan di input data");
+            }
             System.out.println("masih mau input jadwal ?");
-            ag = s.next().charAt(0);
-        } while (ag != 'n');
+            ag = s.next();
+        } while (ag.equalsIgnoreCase("y"));
 
     }
 
@@ -239,8 +252,10 @@ public class Menu {
         Kelas k = odk.cariKelas(kdKelas);
         if (k == null) {
             System.out.println("Kelas tidak ada mohon dicek kembali");
+            statusInput = false;
         } else {
             ck = k;
+            statusInput = true;
             inputMKtoJadwal();
         }
     }
@@ -254,6 +269,7 @@ public class Menu {
             statusInput = false;
         } else {
             cmk = mk;
+            statusInput = true;
             inputDosentoJadwal();
         }
     }
@@ -267,6 +283,7 @@ public class Menu {
             statusInput = false;
         } else {
             cd = d;
+            statusInput = true;
             inputRuangtoJadwal();
         }
     }
@@ -280,6 +297,7 @@ public class Menu {
             statusInput = false;
         } else {
             crk = rk;
+            statusInput = true;
         }
     }
 

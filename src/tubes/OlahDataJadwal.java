@@ -67,7 +67,7 @@ public class OlahDataJadwal implements TabelOlahData {
     }
 
     public boolean cekWaktu(Jadwal j, int bulan) {
-        return (j.getCal().getMonth() == bulan);
+        return (j.getCal().getMonth()+1 == bulan);
     }
 
 //kondisi dosen,ruang,kelas#overload untuk menu
@@ -87,7 +87,7 @@ public class OlahDataJadwal implements TabelOlahData {
         Jadwal jx = null;
         for (Jadwal j : dataJadwal) {
             if (formatter.parse(tanggal).equals(j.getCal()) && shift == j.getShift()) {
-                if (j.getDosen().getKdDosen().equals(kdDosen) && j.getKelas().getKdKelas().equals(kdKelas) && j.getRuang().getKdRuang().equals(kdRuang)) {
+                if (j.getDosen().getKdDosen().equals(kdDosen) || j.getKelas().getKdKelas().equals(kdKelas) || j.getRuang().getKdRuang().equals(kdRuang)) {
                     jx = j;
                     break;
                 } else {
@@ -120,7 +120,6 @@ public class OlahDataJadwal implements TabelOlahData {
                 System.out.println("format input tanggal salah");;
             }
         }
-
     }
 
     public void viewAllJadwalSatuBulan(int bulan) {

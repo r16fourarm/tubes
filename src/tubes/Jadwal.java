@@ -12,7 +12,9 @@ package tubes;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
 public class Jadwal {
+
     private Kelas kelas;
     private MataKuliah matkul;
     private Dosen dosen;
@@ -22,27 +24,25 @@ public class Jadwal {
     private int shift;
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal,int shift) {
-        if(cekFull(ruang,kelas)||(shift<1||shift>6)){
-            
-        this.kelas = kelas;
-        this.matkul = matkul;
-        this.dosen = dosen;
-        this.ruang = ruang;
-        this.shift = shift;
-        try {
-            this.cal = formatter.parse(cal);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-        this.kdJadwal = kdJadwal;
-        }
-        else
-            System.out.println("Jadwal tidak dapat dibuat karena over kapasitas/melebihi shift");
+    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal, int shift) {
+            this.kelas = kelas;
+            this.matkul = matkul;
+            this.dosen = dosen;
+            this.ruang = ruang;
+            this.shift = shift;
+            try {
+                this.cal = formatter.parse(cal);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+            this.kdJadwal = kdJadwal;
+        
     }
-    public boolean cekFull(RuangKelas r,Kelas k){
-        return (r.getnKapasitas()>=k.getnKapasitas());
+
+    public boolean cekFull(RuangKelas r, Kelas k) {
+        return (r.getnKapasitas() >= k.getnKapasitas());
     }
+
     public Kelas getKelas() {
         return kelas;
     }
@@ -70,5 +70,5 @@ public class Jadwal {
     public int getShift() {
         return shift;
     }
-    
+
 }
