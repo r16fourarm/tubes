@@ -9,12 +9,15 @@ package tubes;
  *
  * @author R16
  */
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Menu {
 
@@ -23,6 +26,7 @@ public class Menu {
     private OlahDataRuang odr = new OlahDataRuang();
     private OlahDataKelas odk = new OlahDataKelas();
     private OlahDataJadwal odj = new OlahDataJadwal();
+    private DBase db;
     private Scanner s = null;
     private Dosen cd = null;
     private MataKuliah cmk = null;
@@ -34,26 +38,11 @@ public class Menu {
     private boolean statusInput = true;
     private String loginMessage = "Anda belum loginn";
     DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-    Dosen d1 = new Dosen("Pak Andit", "ADN");
-    Dosen d2 = new Dosen("Pak Dody", "DQR");
-    MataKuliah mk1 = new MataKuliah("Pemograman Berbasis Objek", "PBO");
-    MataKuliah mk2 = new MataKuliah("Algoritma Struktur Data", "ASD");
-    Kelas k1 = new Kelas("SK3702", 40);
-    Kelas k2 = new Kelas("IF3706", 40);
-    RuangKelas rk1 = new RuangKelas("A103", 40);
-    RuangKelas rk2 = new RuangKelas("A102", 40);
-    RuangKelas rk3 = new RuangKelas("A104", 20);
+    Dosen d1 = new Dosen("Pak Andit", "ADF");
+    Dosen d2 = new Dosen("Pak Dody", "DQU");
 
     public Menu() {
-        ods.addDosen(d1);
-        ods.addDosen(d2);
-        odk.addKelas(k1);
-        odk.addKelas(k2);
-        odmk.addMataKuliah(mk1);
-        odmk.addMataKuliah(mk2);
-        odr.addRuang(rk1);
-        odr.addRuang(rk2);
-        odr.addRuang(rk3);
+
         s = new Scanner(System.in);
     }
 
@@ -101,11 +90,12 @@ public class Menu {
                 System.out.println("1.Olah Data");
                 System.out.println("2.Olah Jadwal");
                 System.out.println("3.LOGOUT");
+                System.out.println("4.Exit");
                 System.out.println("Input pilihan : ");
                 pil = s.nextInt();
                 System.out.println("============");
-                if (pil < 0 || pil > 3) {
-                    System.out.println("Input harus 0-3");
+                if (pil < 0 || pil > 4) {
+                    System.out.println("Input harus 0-4");
                 }
                 switch (pil) {
                     case 0:
@@ -144,7 +134,7 @@ public class Menu {
             } finally {
                 s = new Scanner(System.in);
             }
-        } while (pil != 5);
+        } while (pil != 4);
 
     }
 
@@ -222,7 +212,7 @@ public class Menu {
                                         System.out.println("shift hanya ada 6");
                                     } else {
                                         Jadwal j = new Jadwal(ck, cmk, cd, crk, tgl, kj, shift);
-                                        odj.addJadwal(j);
+                                        odj.add(j);
                                     }
                                 }
                             } else {
@@ -344,13 +334,27 @@ public class Menu {
                 String in = s.next();
                 System.out.println("kd dosen : ");
                 String in1 = s.next();
-                Dosen d = new Dosen(in, in1);
-                ods.addDosen(d);
+                ods.loadData();
+                Dosen x = ods.cariDosen(in1);
+                if (x == null) {
+                    Dosen d = new Dosen(in, in1);
+                    ods.add(d);
+                } else {
+                    System.out.println("dosen udah ada");
+                }
+                ods.emptyTemp();
                 break;
             case 2:
                 System.out.println("masukkan nama dosen yg mau dihapus : ");
                 String in2 = s.next();
-                ods.remove(in2);
+                ods.loadData();
+                Dosen x1 = ods.cariDosen(in2);
+                if (x1 == null) {
+                    System.out.println("data dosen tidak ada");
+                } else {
+                    ods.remove(x1);
+                }
+                ods.emptyTemp();
                 break;
             case 3:
                 System.out.println("===ViewALLDosen==");
@@ -369,13 +373,27 @@ public class Menu {
                 String in = s.next();
                 System.out.println("kd mk : ");
                 String in1 = s.next();
-                MataKuliah mk = new MataKuliah(in, in1);
-                odmk.addMataKuliah(mk);
+                odmk.loadData();
+                MataKuliah mkx = odmk.cariMK(in1);
+                if (mkx == null) {
+                    MataKuliah mk = new MataKuliah(in, in1);
+                    odmk.add(mk);
+                } else {
+                    System.out.println("mata kuliah udah ada");
+                }
+                odmk.emptyTemp();
                 break;
             case 2:
-                System.out.println("masukkan nama mk yg mau dihapus : ");
+                System.out.println("masukkan kode mk yg mau dihapus : ");
                 String in2 = s.next();
-                odmk.remove(in2);
+                odmk.loadData();
+                MataKuliah mkx1 = odmk.cariMK(in2);
+                if (mkx1 == null) {
+                    System.out.println("mata kuliah ga ada");
+                } else {
+                    odmk.remove(in2);
+                }
+                odmk.emptyTemp();
                 break;
             case 3:
                 System.out.println("===ViewALLMK==");
@@ -394,13 +412,27 @@ public class Menu {
                 String in = s.next();
                 System.out.println("kapasitas ruangan : ");
                 int in1 = s.nextInt();
-                RuangKelas rk = new RuangKelas(in, in1);
-                odr.addRuang(rk);
+                odr.loadData();
+                RuangKelas rkx = odr.cariRuang(in);
+                if (rkx == null) {
+                    RuangKelas rk = new RuangKelas(in, in1);
+                    odr.add(rk);
+                } else {
+                    System.out.println("data sudah ada");
+                }
+                odr.emptyTemp();
                 break;
             case 2:
                 System.out.println("masukkan kd ruang yg mau dihapus : ");
                 String in2 = s.next();
-                odr.remove(in2);
+                odr.loadData();
+                RuangKelas rkx1 = odr.cariRuang(in2);
+                if (rkx1 == null) {
+                    System.out.println("ruang tidak ada");
+                } else {
+                    odr.remove(in2);
+                }
+                odr.emptyTemp();
                 break;
             case 3:
                 System.out.println("===ViewALLRuang==");
@@ -417,13 +449,27 @@ public class Menu {
                 String in = s.next();
                 System.out.println("kapasitas : ");
                 int in1 = s.nextInt();
-                Kelas k = new Kelas(in, in1);
-                odk.addKelas(k);
+                odk.loadData();
+                Kelas kx = odk.cariKelas(in);
+                if (kx == null) {
+                    Kelas k = new Kelas(in, in1);
+                    odk.add(k);
+                } else {
+                    System.out.println("kelas udah ada");
+                }
+                odk.emptyTemp();
                 break;
             case 2:
                 System.out.println("masukkan kd kelas yg mau dihapus : ");
                 String in2 = s.next();
-                odk.remove(in2);
+                odk.loadData();
+                Kelas kx1 = odk.cariKelas(in2);
+                if (kx1 == null) {
+                    System.out.println("kelas ga ada");
+                } else {
+                    odk.remove(kx1);
+                }
+                odk.emptyTemp();
                 break;
             case 3:
                 System.out.println("===ViewALLKelas==");

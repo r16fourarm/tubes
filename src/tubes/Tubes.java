@@ -18,9 +18,12 @@ public class Tubes {
     
     public static void main(String[] args) {
         // TODO code application logic here
-        Menu m = new Menu();
         
-        m.tampilMenuAwal();
+        guimenu gui = new guimenu();
+        gui.setVisible(true);
+        Controller c =  new Controller();
+        c.setView(gui);
+        c.setListener();
     
     }
 }

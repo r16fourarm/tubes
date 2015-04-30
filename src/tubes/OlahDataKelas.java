@@ -9,48 +9,60 @@ package tubes;
  *
  * @author R16
  */
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OlahDataKelas implements TabelOlahData {
 
+    private DBase db;
+    private String query;
     private ArrayList<Kelas> dataKelas;
 
     public OlahDataKelas() {
         dataKelas = new ArrayList<Kelas>();
+        db = new DBase();
+        try {
+            db.connect();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
      * Menambah sebuah Kelas ke database kelas
-     *
-     * @param k Menambah sebuah Objek (Kelas k) ke dalam arraylist
+     * @param o
+     * Menambah sebuah Objek o yang di cast menjadi kelas ke dalam arraylist/DB
      */
-    public void addKelas(Kelas k) {
-        dataKelas.add(k);
+    @Override
+    public void add(Object o) {
+        Kelas k = (Kelas) o;
+            dataKelas.add(k);
+            query = "insert into olahkelas" + "(kdkelas,kapasitas)"
+                    + "values ('" + k.getKdKelas() + "', " + k.getnKapasitas() + ")";
+            db.execute(query);
     }
-
     /**
-     * Menghapus sebuah objek kelas
-     *
-     * @param kdkelas dengan menginputkan kode kelas yang ingin dihapus
+     * Menghapus kelas dari dalam arraylist/DB
+     * @param o
+     * menghapus objek o yang di cast ke Kelas dari dalam arraylist/DB
      */
-    public void remove(String kdkelas) {
-        Kelas kx = null;
-        for (Kelas k : dataKelas) {
-            if (k.getKdKelas().equals(kdkelas)) {
-                kx = k;
-                break;
-            } else {
-                kx = null;
-            }
-        }
-        if (kx == null) {
-            System.out.println("data tidak ada");
-        } else {
-            dataKelas.remove(kx);
-            System.out.println("data telah dihapys");
-        }
+    @Override
+    public void remove(Object o) {
+            Kelas k=(Kelas) o;
+            query = "delete from olahkelas where(kdkelas='" + k.getKdKelas() + "')";
+            db.execute(query);
+            dataKelas.remove(k);
+            System.out.println("data telah dihapus");
+        
     }
-
+/**
+ * method untuk mencari Kelas dalam arraylist/DB
+ * @param kdkelas
+ * parameter yang digunakan kode kelas
+ * @return 
+ * mengembalikan Objek Kelas jika ditemukan dan Null jika tidak
+ */
     public Kelas cariKelas(String kdkelas) {
         Kelas km = null;
         for (Kelas k : dataKelas) {
@@ -67,10 +79,35 @@ public class OlahDataKelas implements TabelOlahData {
     /**
      * Menampilkan seluruh data Kelas yang ada di dalam kelas
      */
+    @Override
     public void viewAll() {
+        loadData();
         for (Kelas k : dataKelas) {
             System.out.println(k.getKdKelas());
         }
+        emptyTemp();
+    }
+
+    @Override
+    public void loadData() {
+        query = "select * from olahkelas";
+        try {
+            ResultSet rs = db.getData(query);
+            while (rs.next()) {
+                String sbkdk = rs.getString("kdkelas");
+                int sbkap = Integer.parseInt(rs.getString("kapasitas"));
+                Kelas kv = new Kelas(sbkdk, sbkap);
+                dataKelas.add(kv);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void emptyTemp() {
+        dataKelas.clear();
     }
 
 }

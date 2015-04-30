@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<TitledPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tubes.Gui_mainmenuController">
+   <content>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass">
+          <stylesheets>
+              <URL value="@gui_mainmenu.css" />
+          </stylesheets>
+         <children>
+            <Circle fx:id="btnOlahData" fill="DODGERBLUE" layoutX="192.0" layoutY="190.0" onMouseClicked="#btnOlahDataClicked" radius="90.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="btnOlahJadwal" fill="DODGERBLUE" layoutX="399.0" layoutY="193.0" onMouseClicked="#btnOlahJadwalClicked" radius="93.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label layoutX="121.0" layoutY="178.0" text="Menu Olah Data" textFill="#a40404">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="328.0" layoutY="178.0" text="Menu Olah Jadwal" textFill="#a40404">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+</TitledPane>

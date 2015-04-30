@@ -10,6 +10,9 @@ package tubes;
  * @author R16
  */
 public interface TabelOlahData {
+    public abstract void add(Object o);
     public abstract void viewAll();
-    public abstract void remove(String nama);
+    public abstract void remove(Object o);
+    public abstract void loadData();
+    public abstract void emptyTemp();
 }
