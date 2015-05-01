@@ -7,11 +7,13 @@ package tubes;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -39,12 +41,15 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     private final ImageIcon iconbtnOlahDataclicked = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-olahdata-clicked.png");
     private final ImageIcon iconbtnOlahJadwal = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-oahjadwal.png");
     private final ImageIcon iconbtnOlahJadwalclicked = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-jadwal-clicked.png");
-    private final ImageIcon iconbtnOlahDosen = new ImageIcon("");
-    private final ImageIcon iconbtnOlahDosenclicked = new ImageIcon("");
+    private final ImageIcon iconbtnOlahDosen = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-dosen.png");
+    private final ImageIcon iconbtnOlahDosenclicked = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-dosen-clicked.png");
     private final ImageIcon iconbtnOlahMk = new ImageIcon("");
     private final ImageIcon iconbtnOlahMkclicked = new ImageIcon("");
     private final ImageIcon iconbtnOlahKelas = new ImageIcon("");
+    private final ImageIcon iconbtnOlahKelasclicked = new ImageIcon("");
     private final ImageIcon iconbtnOlahRuang = new ImageIcon("");
+    private final ImageIcon iconbtnOlahRuangclicked = new ImageIcon("");
+    private final ImageIcon iconbtnBackOlahDataclicked = new ImageIcon("");
 
     public void setView(guimenu gui) {
         this.gui = gui;
@@ -81,11 +86,15 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     }
 
     /**
-     * "menu awal" action performed dari tombol olah data
+     * method untuk memindahkan antar screen/panel(sebenarnya ga pindah sih cuma
+     * di setvisible :v)
+     *
+     * @param panel parameter panel yang akan ditampilkan/atau panel
+     * tujuan/panel yg di setvisible(true)
      */
-    public void apOlahDataclicked() {
+    public void panelChange(JPanel panel) {
         for (JPanel c : arycomp) {
-            if (c.equals(gui.getPanelmenuawal())) {
+            if (c.equals(panel)) {
                 c.setVisible(true);
             } else {
                 c.setVisible(false);
@@ -94,84 +103,180 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     }
 
     /**
+     * "menu awal" action performed dari tombol olah data
+     */
+    public void apOlahDataclicked() {
+        panelChange(gui.getPanelmenuawal());
+    }
+
+    /**
      * "menu awal" action performed dari tombol olah jadwal
      */
     public void apOlahJadwalClicked() {
-        for (Component c : arycomp) {
-            if (c.equals(gui.getPanelOlahjadwal())) {
-                c.setVisible(true);
-            } else {
-                c.setVisible(false);
-            }
-        }
-    }
-/**
- *  action performed dari tombol olah Dosen
- */
-    public void apOlahDosenClicked() {
-        for (Component c : arycomp) {
-            if (c.equals(gui.getPanelOlahDosen())) {
-                c.setVisible(true);
-            } else {
-                c.setVisible(false);
-            }
-        }
-    }
-/**
- * action performed dari tombol olah MK
- */
-    public void apOlahMKClicked() {
-        for (Component c : arycomp) {
-            if (c.equals(gui.getPanelOlahMk())) {
-                c.setVisible(true);
-            } else {
-                c.setVisible(false);
-            }
-        }
-    }
-/**
- * action performed dari tombol olah Kelas
- */
-    public void apOlahKelasClicked() {
-    for (Component c : arycomp) {
-            if (c.equals(gui.getPanelOlahKelas())) {
-                c.setVisible(true);
-            } else {
-                c.setVisible(false);
-            }
-        }
-    }
-/**
- * action performed dari tombol olah Ruang
- */
-    public void apOlahRuangClicked() {
-        for (Component c : arycomp) {
-            if (c.equals(gui.getPanelOlahRuang())) {
-                c.setVisible(true);
-            } else {
-                c.setVisible(false);
-            }
-        }
+        panelChange(gui.getPanelOlahjadwal());
     }
 
+    /**
+     * action performed dari tombol olah Dosen
+     */
+    public void apOlahDosenClicked() {
+        panelChange(gui.getPanelOlahDosen());
+    }
+
+    /**
+     * action performed dari tombol olah MK
+     */
+    public void apOlahMKClicked() {
+        panelChange(gui.getPanelOlahMk());
+    }
+
+    /**
+     * action performed dari tombol olah Kelas
+     */
+    public void apOlahKelasClicked() {
+        panelChange(gui.getPanelOlahKelas());
+    }
+
+    /**
+     * action performed dari tombol olah Ruang
+     */
+    public void apOlahRuangClicked() {
+        panelChange(gui.getPanelOlahRuang());
+    }
+
+    /**
+     * action performed kembali ke(Menu)tampilan paling awal
+     */
+    public void apKembalitoMenubuttonclicked() {
+        panelChange(gui.getPanelMenu());
+    }
+
+    /**
+     * action performed kembali ke(MenuAwal) tampilan dari OlahData
+     */
+    public void apKembalitoMenuAwalbtnClicked() {
+        panelChange(gui.getPanelmenuawal());
+    }
+
+    /**
+     * action performed dari tombol save dosen dimana akan mengecek dari field
+     * kode dosen, jika dosen tsbt sudah ada di db makan akan keluar joptionpane
+     * peringatan jika belum maka dosen tsbt akan ditambahkan ke db
+     */
     public void apsaveDosenClicked() {
         ods.loadData();
         Dosen x = ods.cariDosen(gui.getFieldkdosen().getText());
-        if(x==null){
+        if (x == null) {
             Dosen d = new Dosen(gui.getFieldnamadosen().getText(), gui.getFieldkdosen().getText());
             ods.add(d);
-        }
-        else{
+        } else {
             gui.getJpane().setToolTipText("Dosen sudah terdaftar");
             gui.getFieldnamadosen().setText("");
             gui.getFieldkdosen().setText("");
         }
+        ods.emptyTemp();
     }
-    public void aphapusDosenClicked(){
-    
+
+    /**
+     * action performed dari tombol hapus dimana akan mengecek dari field kode
+     * dosen, jika dosen tsbt sudah ada db makan akan keluar joptionpane
+     * peringatan jika belum maka dosen tsbt akan ditambahkan ke db
+     */
+    public void aphapusDosenClicked() {
+        ods.loadData();
+        Dosen x = ods.cariDosen(gui.getFieldkdosen().getText());
+        if (x == null) {
+            gui.getJpane().setToolTipText("Dosen tidak terdaftar");
+            gui.getFieldnamadosen().setText("");
+            gui.getFieldkdosen().setText("");
+        } else {
+            ods.remove(x);
+        }
+        ods.emptyTemp();
     }
-    public void apViewDosenClicked(){}
-    public void apBackDosenClicked(){}
+
+    /**
+     * action performed dari tombol view dimana akanmengarahkan ke layar view
+     * all dosen
+     */
+    public void apViewDosenClicked() {
+        panelChange(gui.getPanelViewDosen());
+    }
+
+    public void apSaveMKClicked() {
+        odmk.loadData();
+        MataKuliah x = odmk.cariMK(gui.getFieldkdMk().getText());
+        if (x == null) {
+            MataKuliah mk = new MataKuliah(gui.getFieldnamaMk().getText(), gui.getFieldkdMk().getText());
+            odmk.add(mk);
+        } else {
+            gui.getJpane().setToolTipText("Matakuliah sudah terdaftar");
+            gui.getFieldnamaMk().setText("");
+            gui.getFieldkdMk().setText("");
+        }
+        odmk.emptyTemp();
+    }
+
+    public void apHapusMKClicked() {
+        odmk.loadData();
+        MataKuliah x = odmk.cariMK(gui.getFieldkdMk().getText());
+        if (x == null) {
+            gui.getJpane().setToolTipText("Mata kuliah tidak ditemukan");
+            gui.getFieldnamaMk().setText("");
+            gui.getFieldkdMk().setText("");
+        } else {
+            odmk.remove(x);
+        }
+        odmk.emptyTemp();
+    }
+
+    public void apViewMKClicked() {
+        panelChange(gui.getPanelViewMK());
+    }
+
+    public void apSaveKelasClicked() {
+        odk.loadData();
+        Kelas x = odk.cariKelas(gui.getFieldkdKls().getText());
+        if (x == null) {
+            Kelas k = new Kelas(gui.getFieldkdKls().getText(), Integer.parseInt(gui.getFieldKapKelas().getText()));
+            odk.add(k);
+        } else {
+            gui.getJpane().setToolTipText("Kelas sudah ada");
+            gui.getJpane().setVisible(true);
+            gui.getFieldkdKls().setText("");
+            gui.getFieldKapKelas().setText("");
+        }
+        odk.emptyTemp();
+    }
+
+    public void apHapusKelasClicked() {
+        odk.loadData();
+        Kelas x = odk.cariKelas(gui.getFieldkdKls().getText());
+        if (x == null) {
+            gui.getJpane().setToolTipText("Kelas tidak ditemukan");
+            gui.getFieldkdKls().setText("");
+            gui.getFieldKapKelas().setText("");
+        } else {
+            odk.remove(x);
+        }
+        odmk.emptyTemp();
+    }
+
+    public void apViewKelasClicked() {
+        panelChange(gui.getPanelViewKelas());
+    }
+    public void apSaveRuangClicked(){
+        odr.loadData();
+        RuangKelas x = odr.cariRuang(gui.getFieldkdRuang().getText());
+        if(x==null){
+            RuangKelas r = new RuangKelas(gui.getFieldkdRuang().getText(), Integer.parseInt(gui.getFieldKapRuang().getText()));
+            odr.add(r);
+        }else{
+            gui.getJpane().setToolTipText("Kelas tidak ditemukan");
+            gui.getFieldkdKls().setText("");
+            gui.getFieldKapKelas().setText("");
+        }
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -184,8 +289,13 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
             gui.getBtnExit().setIcon(iconbtnexitclicked);
         } else if (source.equals(gui.getBtnOlahData())) {
             gui.getBtnOlahData().setIcon(iconbtnOlahDataclicked);
-        } else if(source.equals(gui.getBtnOlahJadwal())){
+        } else if (source.equals(gui.getBtnOlahJadwal())) {
             gui.getBtnOlahJadwal().setIcon(iconbtnOlahJadwalclicked);
+        } else if (source.equals(gui.getBtnDosen())) {
+            gui.getBtnDosen().setIcon(iconbtnOlahDosenclicked);
+        } else if (source.equals(gui.getBtnMk())) {
+        } else if (source.equals(gui.getBtnKls())) {
+        } else if (source.equals(gui.getBtnRuang())) {
         }
     }
 
@@ -204,6 +314,7 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
             gui.getBtnOlahJadwal().setIcon(iconbtnOlahJadwal);
         } else if (source.equals(gui.getBtnDosen())) {
             apOlahDosenClicked();
+            gui.getBtnDosen().setIcon(iconbtnOlahDosen);
         } else if (source.equals(gui.getBtnMk())) {
         } else if (source.equals(gui.getBtnKls())) {
         } else if (source.equals(gui.getBtnRuang())) {
