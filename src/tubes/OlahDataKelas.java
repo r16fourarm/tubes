@@ -29,6 +29,10 @@ public class OlahDataKelas implements TabelOlahData {
         }
     }
 
+    public ArrayList<Kelas> getDataKelas() {
+        return dataKelas;
+    }
+
     /**
      * Menambah sebuah Kelas ke database kelas
      * @param o

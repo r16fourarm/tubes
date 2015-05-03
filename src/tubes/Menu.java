@@ -202,7 +202,7 @@ public class Menu {
                         try {
                             if (odj.cariJadwal(tgl, shift, cd.getKdDosen(), ck.getKdKelas(), crk.getKdRuang()) == null) {
                                 System.out.println("kode jadwal : ");
-                                String kj = s.next();
+                                int kj = s.nextInt();
                                 if (ck == null || crk == null || cmk == null || cd == null) {
                                     System.out.println("maaf tidak bsa menginput jadwal parameter kurang");
                                 } else {

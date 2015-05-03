@@ -55,6 +55,8 @@ public class OlahDataRuang implements TabelOlahData {
         RuangKelas rkx = (RuangKelas) o;
 
             dataRuang.remove(rkx);
+            query="delete from olahruang where(kdruang='"+rkx.getKdRuang()+"')";
+            db.execute(query);
             System.out.println("data telah dihapus");
     }
 /**
@@ -87,12 +89,16 @@ public class OlahDataRuang implements TabelOlahData {
         }
         emptyTemp();
     }
+
+    public ArrayList<RuangKelas> getDataRuang() {
+        return dataRuang;
+    }
 /**
  * method load data dari database ke dalam temporary arraylist
  */
     @Override
     public void loadData() {
-    query = "select * from olahmk";
+    query = "select * from olahRuang";
         try {
             ResultSet rs = db.getData(query);
             while (rs.next()) {

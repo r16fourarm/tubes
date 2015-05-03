@@ -9,6 +9,7 @@ package tubes;
  *
  * @author R16
  */
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.DateFormat;
@@ -17,16 +18,23 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class OlahDataJadwal implements TabelOlahData {
 
     private ArrayList<Jadwal> dataJadwal;
+    private ArrayList<Dosen> tempODS;
+    private ArrayList<MataKuliah> tempODMK;
+    private ArrayList<Kelas> tempODK;
+    private ArrayList<RuangKelas> tempOR;
     private DBase db;
-    private String query;
-    DateFormat formatter = new SimpleDateFormat("dd;-MMM-yyyy");
-    DateFormat formatter2 = new SimpleDateFormat("HH-mm-ss");
+    private String query, query1, query2, query3;
+    DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+    DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+
+    public ArrayList<Jadwal> getDataJadwal() {
+        return dataJadwal;
+    }
 
     public OlahDataJadwal() {
         dataJadwal = new ArrayList<Jadwal>();
@@ -42,9 +50,14 @@ public class OlahDataJadwal implements TabelOlahData {
     public void add(Object o) {
         Jadwal j = (Jadwal) o;
         dataJadwal.add(j);
-        /*query = "insert into olahruang" + "(kdruang,kapasitasruang)"
-                    + "values ('" + r.getKdRuang() + "', " + r.getnKapasitas() + ")";
-            db.execute(query);*/
+        query = "INSERT INTO olahjadwal( kdDosen, kdMk, kdKelas, kdRuang, tanggal, shift) VALUES ('"
+                + j.getDosen().getKdDosen() + "','"
+                + j.getMatkul().getKdMk() + "','"
+                + j.getKelas().getKdKelas() + "','"
+                + j.getRuang().getKdRuang() + "','"
+                + new java.sql.Date(j.getCal().getTime()) + "',"
+                + j.getShift() + ")";
+        db.execute(query);
         Collections.sort(dataJadwal, new Comparator<Jadwal>() {
             @Override
             public int compare(Jadwal j1, Jadwal j2) {
@@ -58,10 +71,12 @@ public class OlahDataJadwal implements TabelOlahData {
     }
 
     public void remove(Object o) {
-        Jadwal jx = (Jadwal) o; 
-            dataJadwal.remove(jx);
-            System.out.println("data telah dihapus");
+        Jadwal jx = (Jadwal) o;
+        dataJadwal.remove(jx);
+        query = "delete from olahjadwal where kdJadwal=" + jx.getKdJadwal();
+        System.out.println("data telah dihapus");
     }
+
     public boolean cekWaktu(Jadwal j, String tanggal) throws ParseException {
         return (formatter.parse(tanggal).getDate() == j.getCal().getDate() && formatter.parse(tanggal).getDay() == j.getCal().getDay() && formatter.parse(tanggal).getYear() == j.getCal().getYear() && formatter.parse(tanggal).getHours() == j.getCal().getHours());
     }
@@ -135,10 +150,36 @@ public class OlahDataJadwal implements TabelOlahData {
             }
         }
     }
-
+    public boolean cekConstraintTanggal(String tanggal) throws ParseException{
+        return(formatter.parse(tanggal).equals(new Date()));
+    }
     @Override
     public void loadData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        query = "select * from olahjadwal";
+        try {
+            ResultSet rs = db.getData(query);
+
+            while (rs.next()) {
+                String kdDosen = rs.getString("kdDosen");
+                Dosen d = new Dosen("", kdDosen);
+                String kdMk = rs.getString("kdMk");
+                MataKuliah mk =  new MataKuliah("", kdMk);
+                String kdKelas = rs.getString("kdKelas");
+                Kelas k =  new Kelas(kdKelas,0);
+                String kdRuang = rs.getString("kdRuang");
+                RuangKelas r = new RuangKelas(kdRuang, 0);
+                int shift = Integer.parseInt(rs.getString("shift"));
+                int idJadwal = Integer.parseInt(rs.getString("kdJadwal"));
+                String tgl =  formatter.format(formatter2.parse(rs.getString("tanggal")));
+                Jadwal  j = new Jadwal(k, mk, d, r, tgl, idJadwal, shift);
+                dataJadwal.add(j);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ParseException ex) {
+           ex.printStackTrace();
+        }
     }
 
     @Override

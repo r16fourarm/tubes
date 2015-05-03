@@ -19,6 +19,10 @@ public class OlahDataDosen implements TabelOlahData {
     private DBase db;
     private String query;
     private ArrayList<Dosen> dataDosen;
+
+    public ArrayList<Dosen> getDataDosen() {
+        return dataDosen;
+    }
 /**
  * konstruktor instansiansi OlahDataDosen,Database
  * sekaligus connect Database
@@ -121,8 +125,8 @@ public class OlahDataDosen implements TabelOlahData {
             ResultSet rs = db.getData(query);
             while (rs.next()) {
 
-                String sbkdDosen = rs.getString("kddosen");
-                String sbnmDosen = rs.getString("namadosen");
+                String sbkdDosen = rs.getString("kdDosen");
+                String sbnmDosen = rs.getString("namaDosen");
                 Dosen dv = new Dosen(sbnmDosen, sbkdDosen);
                 dataDosen.add(dv);
             }

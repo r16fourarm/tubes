@@ -32,6 +32,10 @@ public class OlahDataMataKuliah implements TabelOlahData {
             ex.printStackTrace();
         }
     }
+
+    public ArrayList<MataKuliah> getDataMk() {
+        return dataMk;
+    }
 /**
  * menambahkan MataKuliah ke dalam Arraylist/DB
  * @param o 

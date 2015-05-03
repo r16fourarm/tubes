@@ -18,13 +18,16 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -34,12 +37,29 @@ public class guimenu extends javax.swing.JFrame {
 
     /**
      * Creates new form guimenu
+     * setter dan getter ada dibawah
      */
     Graphics g;
 
     public guimenu() {
         initComponents();
-
+		/**
+		* kalau backgroundnya ilang set panelnya ulang
+		*panelMenu = new BGpanel();
+		*panelmenuawal = new BGpanel();
+		*panelOlahjadwal = new BGpanel();
+		*panelview1hari = new BGpanel();
+		*panelViewJadwalbulan = new BGpanel();
+		*panelviewJadwalAll = new BGpanel();
+		*panelOlahDosen = new BGpanel();
+		*panelViewDosen = new BGpanel();
+		*panelOlahMk = new BGpanel();
+		*panelViewMK = new BGpanel();
+		*panelViewKelas = new BGpanel();
+		*panelOlahKelas = new BGpanel();
+		*panelOlahRuang = new BGpanel();
+		*panelViewRuang = new BGpanel();
+		*/
     }
 
     /**
@@ -52,33 +72,64 @@ public class guimenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jpane = new javax.swing.JOptionPane();
-        panelMenu = new javax.swing.JPanel();
+        panelMenu = new BGpanel();
         btnOlahData = new javax.swing.JLabel();
         btnOlahJadwal = new javax.swing.JLabel();
         btnExit = new javax.swing.JLabel();
-        panelmenuawal = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        panelmenuawal = new BGpanel();
         btnDosen = new javax.swing.JLabel();
         btnMk = new javax.swing.JLabel();
         btnKls = new javax.swing.JLabel();
         btnRuang = new javax.swing.JLabel();
         btnBack = new javax.swing.JLabel();
-        panelOlahjadwal = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        panelOlahjadwal = new BGpanel();
         btnInputjadwal = new javax.swing.JLabel();
         btnViewJadwalSemua = new javax.swing.JLabel();
         btnviewJadwal1bln = new javax.swing.JLabel();
         btnviewHari = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        panelInputJadwal = new javax.swing.JPanel();
-        panelview1hari = new javax.swing.JPanel();
+        btnBacKOlahjadwal = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        panelInputJadwal = new BGpanel();
+        fieldJadwalKddosen = new javax.swing.JTextField();
+        fieldJadwalKdMk = new javax.swing.JTextField();
+        fieldJadwalKdKls = new javax.swing.JTextField();
+        fieldJadwalKdRuang = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jspinnertgl = new javax.swing.JSpinner();
+        cboxShift = new javax.swing.JComboBox();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        btnsavejadwal = new javax.swing.JLabel();
+        btncanceljadwal = new javax.swing.JLabel();
+        panelview1hari = new BGpanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tableViewharijadwal = new javax.swing.JTable();
-        panelViewJadwalbulan = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jspinnerviewjadwal1hari = new javax.swing.JSpinner();
+        kembaliviewall1hari = new javax.swing.JLabel();
+        btnrefjadwal1hari = new javax.swing.JButton();
+        panelViewJadwalbulan = new BGpanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tableviewjadwalbulan = new javax.swing.JTable();
-        panelviewJadwalAll = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        kembaliviewall1bulan = new javax.swing.JLabel();
+        cboxviewjadwalbulan = new javax.swing.JComboBox();
+        jLabel26 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        panelviewJadwalAll = new BGpanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tableViewalljadwal = new javax.swing.JTable();
-        panelOlahDosen = new javax.swing.JPanel();
+        kembaliviewalljdwal = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        btnrefviewalljadwal = new javax.swing.JButton();
+        panelOlahDosen = new BGpanel();
         jLabel4 = new javax.swing.JLabel();
         fieldkdosen = new javax.swing.JTextField();
         fieldnamadosen = new javax.swing.JTextField();
@@ -87,10 +138,14 @@ public class guimenu extends javax.swing.JFrame {
         btncanceldosen = new javax.swing.JLabel();
         btnhpsdosen = new javax.swing.JLabel();
         btnviewdosen = new javax.swing.JLabel();
-        panelViewDosen = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        panelViewDosen = new BGpanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableViewDosen = new javax.swing.JTable();
-        panelOlahMk = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        btnbackviewAllDosen = new javax.swing.JLabel();
+        btnrefalldosen = new javax.swing.JButton();
+        panelOlahMk = new BGpanel();
         jLabel12 = new javax.swing.JLabel();
         fieldkdMk = new javax.swing.JTextField();
         fieldnamaMk = new javax.swing.JTextField();
@@ -99,10 +154,14 @@ public class guimenu extends javax.swing.JFrame {
         btnCancelmk = new javax.swing.JLabel();
         btnhpsmk = new javax.swing.JLabel();
         btnviewMk = new javax.swing.JLabel();
-        panelViewMK = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        panelViewMK = new BGpanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableviewMk = new javax.swing.JTable();
-        panelOlahKelas = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        btnbackviewAllMk = new javax.swing.JLabel();
+        btnrefallmk = new javax.swing.JButton();
+        panelOlahKelas = new BGpanel();
         jLabel8 = new javax.swing.JLabel();
         fieldkdKls = new javax.swing.JTextField();
         fieldKapKelas = new javax.swing.JTextField();
@@ -111,10 +170,14 @@ public class guimenu extends javax.swing.JFrame {
         btnCancelkelas = new javax.swing.JLabel();
         btnHapuskls = new javax.swing.JLabel();
         btnviewkelas = new javax.swing.JLabel();
-        panelViewKelas = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        panelViewKelas = new BGpanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableViewKelas = new javax.swing.JTable();
-        panelOlahRuang = new javax.swing.JPanel();
+        btnbackviewAllKelas = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        btnrefallkls = new javax.swing.JButton();
+        panelOlahRuang = new BGpanel();
         jLabel16 = new javax.swing.JLabel();
         fieldkdRuang = new javax.swing.JTextField();
         fieldKapRuang = new javax.swing.JTextField();
@@ -123,9 +186,13 @@ public class guimenu extends javax.swing.JFrame {
         btncancelruang = new javax.swing.JLabel();
         btnHapusruang = new javax.swing.JLabel();
         btnviewRuang = new javax.swing.JLabel();
-        panelViewRuang = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        panelViewRuang = new BGpanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableViewRuang = new javax.swing.JTable();
+        jLabel21 = new javax.swing.JLabel();
+        btnrefruang = new javax.swing.JButton();
+        btnbackviewAllRuang = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -142,26 +209,33 @@ public class guimenu extends javax.swing.JFrame {
 
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-keluar.png"))); // NOI18N
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/logo.png"))); // NOI18N
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuLayout.createSequentialGroup()
-                .addGap(0, 245, Short.MAX_VALUE)
-                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnOlahJadwal)
                     .addComponent(btnExit)
                     .addComponent(btnOlahData))
-                .addGap(278, 278, 278))
+                .addContainerGap(268, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(299, 299, 299))
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addGap(15, 15, 15)
                 .addComponent(btnOlahData)
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(btnOlahJadwal)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExit)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -178,12 +252,16 @@ public class guimenu extends javax.swing.JFrame {
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
 
+        jLabel25.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("OLAH DATA");
+
         javax.swing.GroupLayout panelmenuawalLayout = new javax.swing.GroupLayout(panelmenuawal);
         panelmenuawal.setLayout(panelmenuawalLayout);
         panelmenuawalLayout.setHorizontalGroup(
             panelmenuawalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelmenuawalLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(69, 69, 69)
                 .addComponent(btnDosen)
                 .addGap(18, 18, 18)
                 .addComponent(btnMk)
@@ -193,19 +271,25 @@ public class guimenu extends javax.swing.JFrame {
                 .addComponent(btnRuang)
                 .addGap(18, 18, 18)
                 .addComponent(btnBack)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelmenuawalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel25)
+                .addGap(289, 289, 289))
         );
         panelmenuawalLayout.setVerticalGroup(
             panelmenuawalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelmenuawalLayout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addGroup(panelmenuawalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDosen)
+                .addGap(72, 72, 72)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addGroup(panelmenuawalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBack)
                     .addComponent(btnMk)
+                    .addComponent(btnDosen)
                     .addComponent(btnKls)
-                    .addComponent(btnRuang)
-                    .addComponent(btnBack))
-                .addGap(140, 140, 140))
+                    .addComponent(btnRuang))
+                .addGap(169, 169, 169))
         );
 
         getContentPane().add(panelmenuawal, "card2");
@@ -218,56 +302,199 @@ public class guimenu extends javax.swing.JFrame {
 
         btnviewHari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-1hari.png"))); // NOI18N
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+        btnBacKOlahjadwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("OLAH DATA JADWAL");
 
         javax.swing.GroupLayout panelOlahjadwalLayout = new javax.swing.GroupLayout(panelOlahjadwal);
         panelOlahjadwal.setLayout(panelOlahjadwalLayout);
         panelOlahjadwalLayout.setHorizontalGroup(
             panelOlahjadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahjadwalLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(btnInputjadwal)
-                .addGap(18, 18, 18)
-                .addComponent(btnViewJadwalSemua)
-                .addGap(18, 18, 18)
-                .addComponent(btnviewJadwal1bln)
-                .addGap(18, 18, 18)
-                .addComponent(btnviewHari)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(128, 128, 128))
+                .addGroup(panelOlahjadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOlahjadwalLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(btnInputjadwal)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnViewJadwalSemua)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnviewJadwal1bln)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnviewHari)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBacKOlahjadwal))
+                    .addGroup(panelOlahjadwalLayout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel7)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         panelOlahjadwalLayout.setVerticalGroup(
             panelOlahjadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahjadwalLayout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(161, 161, 161))
-            .addGroup(panelOlahjadwalLayout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(panelOlahjadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOlahjadwalLayout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addGroup(panelOlahjadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnviewJadwal1bln)
-                            .addComponent(btnViewJadwalSemua)
-                            .addComponent(btnInputjadwal)))
-                    .addGroup(panelOlahjadwalLayout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(btnviewHari)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBacKOlahjadwal)
+                    .addComponent(btnviewHari)
+                    .addComponent(btnviewJadwal1bln)
+                    .addComponent(btnViewJadwalSemua)
+                    .addComponent(btnInputjadwal))
+                .addGap(180, 180, 180))
         );
 
         getContentPane().add(panelOlahjadwal, "card3");
+
+        fieldJadwalKddosen.setBackground(new java.awt.Color(204, 204, 255));
+        fieldJadwalKddosen.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        fieldJadwalKddosen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        fieldJadwalKddosen.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldJadwalKddosen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldJadwalKddosenActionPerformed(evt);
+            }
+        });
+
+        fieldJadwalKdMk.setBackground(new java.awt.Color(204, 204, 255));
+        fieldJadwalKdMk.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        fieldJadwalKdMk.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        fieldJadwalKdMk.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldJadwalKdMk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldJadwalKdMkActionPerformed(evt);
+            }
+        });
+
+        fieldJadwalKdKls.setBackground(new java.awt.Color(204, 204, 255));
+        fieldJadwalKdKls.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        fieldJadwalKdKls.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        fieldJadwalKdKls.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldJadwalKdKls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldJadwalKdKlsActionPerformed(evt);
+            }
+        });
+
+        fieldJadwalKdRuang.setBackground(new java.awt.Color(204, 204, 255));
+        fieldJadwalKdRuang.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        fieldJadwalKdRuang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        fieldJadwalKdRuang.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldJadwalKdRuang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldJadwalKdRuangActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel10.setText("Kode Dosen :");
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel14.setText("Kode Mk       :");
+
+        jLabel15.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel15.setText("Kode Kelas  :");
+
+        jLabel18.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel18.setText("Kode Ruang :");
+
+        jspinnertgl.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jspinnertgl.setModel(new javax.swing.SpinnerDateModel());
+        jspinnertgl.setAutoscrolls(true);
+        jspinnertgl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jspinnertgl.setEditor(new javax.swing.JSpinner.DateEditor(jspinnertgl, "dd-MMM-yyyy"));
+
+        cboxShift.setBackground(new java.awt.Color(153, 153, 255));
+        cboxShift.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        cboxShift.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06.30-08.10", "08.30-10.10", "10.30-12.10", "12.30-14.10", "14.30-16.10", "16.30-18.10" }));
+        cboxShift.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel19.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel19.setText("Tanggal         :");
+
+        jLabel20.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel20.setText("Shift                :");
+
+        jLabel23.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("INPUT JADWAL");
+
+        btnsavejadwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-tambahdata.png"))); // NOI18N
+
+        btncanceljadwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-cancel.png"))); // NOI18N
 
         javax.swing.GroupLayout panelInputJadwalLayout = new javax.swing.GroupLayout(panelInputJadwal);
         panelInputJadwal.setLayout(panelInputJadwalLayout);
         panelInputJadwalLayout.setHorizontalGroup(
             panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 773, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputJadwalLayout.createSequentialGroup()
+                .addContainerGap(230, Short.MAX_VALUE)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelInputJadwalLayout.createSequentialGroup()
+                            .addComponent(jLabel14)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fieldJadwalKdMk, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputJadwalLayout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fieldJadwalKdKls, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputJadwalLayout.createSequentialGroup()
+                            .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel19)
+                                .addComponent(jLabel20))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cboxShift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jspinnertgl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldJadwalKdRuang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputJadwalLayout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fieldJadwalKddosen, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelInputJadwalLayout.createSequentialGroup()
+                            .addComponent(btnsavejadwal)
+                            .addGap(18, 18, 18)
+                            .addComponent(btncanceljadwal)))
+                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(255, 255, 255))
         );
         panelInputJadwalLayout.setVerticalGroup(
             panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGroup(panelInputJadwalLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel23)
+                .addGap(84, 84, 84)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldJadwalKddosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldJadwalKdMk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldJadwalKdKls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldJadwalKdRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(18, 18, 18)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jspinnertgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addGap(18, 18, 18)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addGap(31, 31, 31)
+                .addGroup(panelInputJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnsavejadwal)
+                    .addComponent(btncanceljadwal))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelInputJadwal, "card10");
@@ -292,21 +519,70 @@ public class guimenu extends javax.swing.JFrame {
         tableViewharijadwal.setRowHeight(30);
         jScrollPane7.setViewportView(tableViewharijadwal);
 
+        jLabel31.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("VIEW ALL JADWAL 1 HARI");
+
+        jLabel32.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel32.setText("Tanggal :");
+
+        jspinnerviewjadwal1hari.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jspinnerviewjadwal1hari.setModel(new javax.swing.SpinnerDateModel());
+        jspinnerviewjadwal1hari.setAutoscrolls(true);
+        jspinnerviewjadwal1hari.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jspinnerviewjadwal1hari.setEditor(new javax.swing.JSpinner.DateEditor(jspinnerviewjadwal1hari, "dd-MMM-yyyy"));
+
+        kembaliviewall1hari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        btnrefjadwal1hari.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefjadwal1hari.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefjadwal1hari.setText("Refresh");
+        btnrefjadwal1hari.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelview1hariLayout = new javax.swing.GroupLayout(panelview1hari);
         panelview1hari.setLayout(panelview1hariLayout);
         panelview1hariLayout.setHorizontalGroup(
             panelview1hariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelview1hariLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(panelview1hariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelview1hariLayout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(jLabel32)
+                        .addGap(65, 65, 65)
+                        .addComponent(jspinnerviewjadwal1hari, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelview1hariLayout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelview1hariLayout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addComponent(kembaliviewall1hari)
+                        .addGap(80, 80, 80)
+                        .addComponent(btnrefjadwal1hari, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelview1hariLayout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(jLabel31)))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         panelview1hariLayout.setVerticalGroup(
             panelview1hariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelview1hariLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel31)
+                .addGap(36, 36, 36)
+                .addGroup(panelview1hariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jspinnerviewjadwal1hari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelview1hariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelview1hariLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kembaliviewall1hari)
+                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelview1hariLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnrefjadwal1hari, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))))
         );
 
         getContentPane().add(panelview1hari, "card8");
@@ -331,21 +607,69 @@ public class guimenu extends javax.swing.JFrame {
         tableviewjadwalbulan.setRowHeight(30);
         jScrollPane8.setViewportView(tableviewjadwalbulan);
 
+        jLabel24.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("VIEW ALL JADWAL 1 BULAN");
+
+        kembaliviewall1bulan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        cboxviewjadwalbulan.setBackground(new java.awt.Color(153, 153, 255));
+        cboxviewjadwalbulan.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        cboxviewjadwalbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
+        cboxviewjadwalbulan.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel26.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel26.setText("Bulan :");
+
+        jButton1.setBackground(new java.awt.Color(153, 153, 255));
+        jButton1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jButton1.setText("Refresh");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelViewJadwalbulanLayout = new javax.swing.GroupLayout(panelViewJadwalbulan);
         panelViewJadwalbulan.setLayout(panelViewJadwalbulanLayout);
         panelViewJadwalbulanLayout.setHorizontalGroup(
             panelViewJadwalbulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelViewJadwalbulanLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGap(329, 329, 329)
+                .addComponent(kembaliviewall1bulan)
+                .addGap(100, 100, 100)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addGroup(panelViewJadwalbulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(162, 162, 162))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(128, 128, 128))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(56, 56, 56)
+                        .addComponent(cboxviewjadwalbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(243, 243, 243))))
         );
         panelViewJadwalbulanLayout.setVerticalGroup(
             panelViewJadwalbulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(panelViewJadwalbulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxviewjadwalbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addGap(18, 18, 18)
+                .addGroup(panelViewJadwalbulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelViewJadwalbulanLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(kembaliviewall1bulan)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewJadwalbulanLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))))
         );
 
         getContentPane().add(panelViewJadwalbulan, "card8");
@@ -370,28 +694,58 @@ public class guimenu extends javax.swing.JFrame {
         tableViewalljadwal.setRowHeight(30);
         jScrollPane5.setViewportView(tableViewalljadwal);
 
+        kembaliviewalljdwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        jLabel30.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("VIEW ALL JADWAL");
+
+        btnrefviewalljadwal.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefviewalljadwal.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefviewalljadwal.setText("Refresh");
+        btnrefviewalljadwal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelviewJadwalAllLayout = new javax.swing.GroupLayout(panelviewJadwalAll);
         panelviewJadwalAll.setLayout(panelviewJadwalAllLayout);
         panelviewJadwalAllLayout.setHorizontalGroup(
             panelviewJadwalAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(panelviewJadwalAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
+                        .addGap(315, 315, 315)
+                        .addComponent(kembaliviewalljdwal)
+                        .addGap(107, 107, 107)
+                        .addComponent(btnrefviewalljadwal))
+                    .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jLabel30)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         panelviewJadwalAllLayout.setVerticalGroup(
             panelviewJadwalAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelviewJadwalAllLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGroup(panelviewJadwalAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(kembaliviewalljdwal))
+                    .addGroup(panelviewJadwalAllLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(btnrefviewalljadwal)))
+                .addGap(28, 28, 28))
         );
 
         getContentPane().add(panelviewJadwalAll, "card8");
 
         panelOlahDosen.setPreferredSize(new java.awt.Dimension(483, 300));
 
-        jLabel4.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel4.setText("Kode Dosen  :");
 
         fieldkdosen.setBackground(new java.awt.Color(204, 204, 255));
@@ -404,7 +758,7 @@ public class guimenu extends javax.swing.JFrame {
         fieldnamadosen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         fieldnamadosen.setCaretColor(new java.awt.Color(153, 255, 153));
 
-        jLabel5.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel5.setText("Nama Dosen :");
 
         btnsavedosen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-tambahdata.png"))); // NOI18N
@@ -415,58 +769,66 @@ public class guimenu extends javax.swing.JFrame {
 
         btnviewdosen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-lihatdata.png"))); // NOI18N
 
+        jLabel6.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("OLAH DATA DOSEN");
+
         javax.swing.GroupLayout panelOlahDosenLayout = new javax.swing.GroupLayout(panelOlahDosen);
         panelOlahDosen.setLayout(panelOlahDosenLayout);
         panelOlahDosenLayout.setHorizontalGroup(
             panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
                 .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                        .addComponent(btnviewdosen)
-                        .addGap(18, 18, 18)
-                        .addComponent(btncanceldosen))
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel6))
                     .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(163, 163, 163)
                         .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                                .addComponent(fieldnamadosen, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnhpsdosen))
+                                .addComponent(btnviewdosen)
+                                .addGap(27, 27, 27)
+                                .addComponent(btncanceldosen))
                             .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                                .addComponent(fieldkdosen, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnsavedosen)
-                                .addGap(1, 1, 1)))))
-                .addGap(46, 173, Short.MAX_VALUE))
+                                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(44, 44, 44)
+                                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fieldnamadosen, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldkdosen, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
+                                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnsavedosen)
+                                    .addComponent(btnhpsdosen))))))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         panelOlahDosenLayout.setVerticalGroup(
             panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                .addGap(87, 87, 87)
+                .addComponent(jLabel6)
+                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahDosenLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(btnsavedosen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnhpsdosen)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahDosenLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
                         .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(fieldkdosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                        .addGap(29, 29, 29)
                         .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(fieldnamadosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelOlahDosenLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btnsavedosen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnhpsdosen)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btncanceldosen)
-                    .addComponent(btnviewdosen))
-                .addContainerGap(156, Short.MAX_VALUE))
+                            .addComponent(fieldnamadosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(panelOlahDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnviewdosen)
+                            .addComponent(btncanceldosen))
+                        .addGap(125, 125, 125))))
         );
 
         getContentPane().add(panelOlahDosen, "card4");
@@ -491,41 +853,82 @@ public class guimenu extends javax.swing.JFrame {
         tableViewDosen.setRowHeight(30);
         jScrollPane1.setViewportView(tableViewDosen);
 
+        jLabel27.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("VIEW ALL DOSEN");
+
+        btnbackviewAllDosen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        btnrefalldosen.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefalldosen.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefalldosen.setText("Refresh");
+        btnrefalldosen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelViewDosenLayout = new javax.swing.GroupLayout(panelViewDosen);
         panelViewDosen.setLayout(panelViewDosenLayout);
         panelViewDosenLayout.setHorizontalGroup(
             panelViewDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewDosenLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel27)
+                .addGap(250, 250, 250))
             .addGroup(panelViewDosenLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(panelViewDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelViewDosenLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelViewDosenLayout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(btnbackviewAllDosen)
+                        .addGap(121, 121, 121)
+                        .addComponent(btnrefalldosen, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         panelViewDosenLayout.setVerticalGroup(
             panelViewDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewDosenLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(panelViewDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewDosenLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnbackviewAllDosen)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewDosenLayout.createSequentialGroup()
+                        .addComponent(btnrefalldosen, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))))
         );
 
         getContentPane().add(panelViewDosen, "card8");
 
         panelOlahMk.setPreferredSize(new java.awt.Dimension(483, 300));
 
-        jLabel12.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel12.setText("Kode MK  :");
 
         fieldkdMk.setBackground(new java.awt.Color(204, 204, 255));
         fieldkdMk.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         fieldkdMk.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         fieldkdMk.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldkdMk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldkdMkActionPerformed(evt);
+            }
+        });
 
         fieldnamaMk.setBackground(new java.awt.Color(204, 204, 255));
         fieldnamaMk.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         fieldnamaMk.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         fieldnamaMk.setCaretColor(new java.awt.Color(153, 255, 153));
+        fieldnamaMk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldnamaMkActionPerformed(evt);
+            }
+        });
 
-        jLabel13.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel13.setText("Nama MK :");
 
         btnsaveMk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-tambahdata.png"))); // NOI18N
@@ -536,55 +939,65 @@ public class guimenu extends javax.swing.JFrame {
 
         btnviewMk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-lihatdata.png"))); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("OLAH DATA MATA KULIAH");
+
         javax.swing.GroupLayout panelOlahMkLayout = new javax.swing.GroupLayout(panelOlahMk);
         panelOlahMk.setLayout(panelOlahMkLayout);
         panelOlahMkLayout.setHorizontalGroup(
             panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahMkLayout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
                 .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOlahMkLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldkdMk, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(fieldnamaMk))
-                        .addGap(30, 30, 30)
-                        .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnsaveMk)
-                            .addComponent(btnhpsmk)))
-                    .addGroup(panelOlahMkLayout.createSequentialGroup()
+                        .addGap(169, 169, 169)
                         .addComponent(btnviewMk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelmk)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelmk))
+                    .addGroup(panelOlahMkLayout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addGroup(panelOlahMkLayout.createSequentialGroup()
+                                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13))
+                                .addGap(55, 55, 55)
+                                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldnamaMk, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldkdMk, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnhpsmk)
+                                    .addComponent(btnsaveMk))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelOlahMkLayout.setVerticalGroup(
             panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahMkLayout.createSequentialGroup()
-                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel3)
+                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelOlahMkLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(121, 121, 121)
                         .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(fieldkdMk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                            .addComponent(fieldkdMk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(31, 31, 31)
                         .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(fieldnamaMk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(fieldnamaMk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(32, 32, 32)
+                        .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnviewMk)
+                            .addComponent(btnCancelmk))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelOlahMkLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsaveMk)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnhpsmk)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOlahMkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelmk)
-                    .addComponent(btnviewMk))
-                .addContainerGap(156, Short.MAX_VALUE))
+                        .addComponent(btnhpsmk)
+                        .addGap(191, 191, 191))))
         );
 
         getContentPane().add(panelOlahMk, "card4");
@@ -609,28 +1022,56 @@ public class guimenu extends javax.swing.JFrame {
         tableviewMk.setRowHeight(30);
         jScrollPane2.setViewportView(tableviewMk);
 
+        jLabel28.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("VIEW ALL MATAKULIAH");
+
+        btnbackviewAllMk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        btnrefallmk.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefallmk.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefallmk.setText("Refresh");
+        btnrefallmk.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelViewMKLayout = new javax.swing.GroupLayout(panelViewMK);
         panelViewMK.setLayout(panelViewMKLayout);
         panelViewMKLayout.setHorizontalGroup(
             panelViewMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelViewMKLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewMKLayout.createSequentialGroup()
+                .addContainerGap(143, Short.MAX_VALUE)
+                .addGroup(panelViewMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewMKLayout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addGap(191, 191, 191))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewMKLayout.createSequentialGroup()
+                        .addGroup(panelViewMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelViewMKLayout.createSequentialGroup()
+                                .addGap(182, 182, 182)
+                                .addComponent(btnbackviewAllMk)
+                                .addGap(87, 87, 87)
+                                .addComponent(btnrefallmk, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(120, 120, 120))))
         );
         panelViewMKLayout.setVerticalGroup(
             panelViewMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewMKLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(31, 31, 31)
+                .addGroup(panelViewMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnbackviewAllMk)
+                    .addComponent(btnrefallmk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
 
         getContentPane().add(panelViewMK, "card8");
 
         panelOlahKelas.setPreferredSize(new java.awt.Dimension(483, 300));
 
-        jLabel8.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel8.setText("Kode Kelas :");
 
         fieldkdKls.setBackground(new java.awt.Color(204, 204, 255));
@@ -643,7 +1084,7 @@ public class guimenu extends javax.swing.JFrame {
         fieldKapKelas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         fieldKapKelas.setCaretColor(new java.awt.Color(153, 255, 153));
 
-        jLabel9.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel9.setText("Kapasitas   :");
 
         btntmbhkelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-tambahdata.png"))); // NOI18N
@@ -654,54 +1095,68 @@ public class guimenu extends javax.swing.JFrame {
 
         btnviewkelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-lihatdata.png"))); // NOI18N
 
+        jLabel11.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("OLAH DATA KELAS");
+
         javax.swing.GroupLayout panelOlahKelasLayout = new javax.swing.GroupLayout(panelOlahKelas);
         panelOlahKelas.setLayout(panelOlahKelasLayout);
         panelOlahKelasLayout.setHorizontalGroup(
             panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahKelasLayout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
+                .addGap(239, 239, 239)
                 .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOlahKelasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
                         .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldkdKls, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldKapKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnHapuskls)
-                            .addComponent(btntmbhkelas)))
-                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
-                        .addComponent(btnviewkelas)
+                            .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(fieldkdKls, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fieldKapKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelkelas)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btntmbhkelas)
+                            .addComponent(btnHapuskls))
+                        .addGap(106, 106, 106))
+                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                                .addComponent(btnviewkelas)
+                                .addGap(45, 45, 45)
+                                .addComponent(btnCancelkelas))
+                            .addComponent(jLabel11))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelOlahKelasLayout.setVerticalGroup(
             panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jLabel11)
                 .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(fieldkdKls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(fieldKapKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btntmbhkelas)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahKelasLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHapuskls)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btntmbhkelas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldkdKls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(25, 25, 25)))
                 .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelkelas)
-                    .addComponent(btnviewkelas))
+                    .addComponent(btnHapuskls)
+                    .addGroup(panelOlahKelasLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(fieldKapKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(19, 19, 19)
+                .addGroup(panelOlahKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnviewkelas)
+                    .addComponent(btnCancelkelas))
                 .addContainerGap(156, Short.MAX_VALUE))
         );
 
@@ -727,28 +1182,59 @@ public class guimenu extends javax.swing.JFrame {
         tableViewKelas.setRowHeight(30);
         jScrollPane3.setViewportView(tableViewKelas);
 
+        btnbackviewAllKelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
+        jLabel29.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("VIEW ALL KELAS");
+
+        btnrefallkls.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefallkls.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefallkls.setText("Refresh");
+        btnrefallkls.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout panelViewKelasLayout = new javax.swing.GroupLayout(panelViewKelas);
         panelViewKelas.setLayout(panelViewKelasLayout);
         panelViewKelasLayout.setHorizontalGroup(
             panelViewKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelViewKelasLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGap(252, 252, 252)
+                .addComponent(jLabel29)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewKelasLayout.createSequentialGroup()
+                .addGroup(panelViewKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelViewKelasLayout.createSequentialGroup()
+                        .addGap(326, 326, 326)
+                        .addComponent(btnbackviewAllKelas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(btnrefallkls, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelViewKelasLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(131, 131, 131))
         );
         panelViewKelasLayout.setVerticalGroup(
             panelViewKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewKelasLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+            .addGroup(panelViewKelasLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGroup(panelViewKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelViewKelasLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(btnbackviewAllKelas))
+                    .addGroup(panelViewKelasLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(btnrefallkls, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
 
         getContentPane().add(panelViewKelas, "card8");
 
         panelOlahRuang.setPreferredSize(new java.awt.Dimension(483, 300));
 
-        jLabel16.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel16.setText("Kode Ruang :");
 
         fieldkdRuang.setBackground(new java.awt.Color(204, 204, 255));
@@ -761,7 +1247,7 @@ public class guimenu extends javax.swing.JFrame {
         fieldKapRuang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         fieldKapRuang.setCaretColor(new java.awt.Color(153, 255, 153));
 
-        jLabel17.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel17.setText("Kapasitas     :");
 
         btnsaveruang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-tambahdata.png"))); // NOI18N
@@ -772,55 +1258,67 @@ public class guimenu extends javax.swing.JFrame {
 
         btnviewRuang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-lihatdata.png"))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("OLAH DATA RUANGAN");
+
         javax.swing.GroupLayout panelOlahRuangLayout = new javax.swing.GroupLayout(panelOlahRuang);
         panelOlahRuang.setLayout(panelOlahRuangLayout);
         panelOlahRuangLayout.setHorizontalGroup(
             panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahRuangLayout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOlahRuangLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldkdRuang, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldKapRuang, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnHapusruang)
-                            .addComponent(btnsaveruang)))
-                    .addGroup(panelOlahRuangLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
                         .addComponent(btnviewRuang)
                         .addGap(18, 18, 18)
-                        .addComponent(btncancelruang)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                        .addComponent(btncancelruang)
+                        .addGap(313, 313, 313))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
+                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addGap(50, 50, 50)
+                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fieldKapRuang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldkdRuang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnsaveruang)
+                            .addComponent(btnHapusruang))
+                        .addGap(150, 150, 150))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(194, 194, 194))))
         );
         panelOlahRuangLayout.setVerticalGroup(
             panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOlahRuangLayout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jLabel1)
+                .addGap(102, 102, 102)
                 .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOlahRuangLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(fieldkdRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(fieldKapRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelOlahRuangLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
                         .addComponent(btnsaveruang)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHapusruang)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
+                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldkdRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addGap(28, 28, 28)))
                 .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOlahRuangLayout.createSequentialGroup()
+                        .addComponent(btnHapusruang)
+                        .addGap(3, 3, 3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOlahRuangLayout.createSequentialGroup()
+                        .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldKapRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(18, 18, 18)))
+                .addGroup(panelOlahRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btncancelruang)
                     .addComponent(btnviewRuang))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelOlahRuang, "card4");
@@ -845,21 +1343,52 @@ public class guimenu extends javax.swing.JFrame {
         tableViewRuang.setRowHeight(30);
         jScrollPane4.setViewportView(tableViewRuang);
 
+        jLabel21.setFont(new java.awt.Font("Roboto", 3, 36)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("VIEW ALL RUANG");
+
+        btnrefruang.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefruang.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnrefruang.setText("Refresh");
+        btnrefruang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        btnbackviewAllRuang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubes/gambar/btn-back.png"))); // NOI18N
+
         javax.swing.GroupLayout panelViewRuangLayout = new javax.swing.GroupLayout(panelViewRuang);
         panelViewRuang.setLayout(panelViewRuangLayout);
         panelViewRuangLayout.setHorizontalGroup(
             panelViewRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelViewRuangLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(panelViewRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelViewRuangLayout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jLabel21))
+                    .addGroup(panelViewRuangLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 144, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewRuangLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnbackviewAllRuang)
+                .addGap(88, 88, 88)
+                .addComponent(btnrefruang, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(162, 162, 162))
         );
         panelViewRuangLayout.setVerticalGroup(
             panelViewRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelViewRuangLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel21)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGroup(panelViewRuangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelViewRuangLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btnrefruang, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelViewRuangLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbackviewAllRuang)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelViewRuang, "card8");
@@ -870,6 +1399,30 @@ public class guimenu extends javax.swing.JFrame {
     private void btnOlahDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOlahDataMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnOlahDataMouseClicked
+
+    private void fieldnamaMkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldnamaMkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldnamaMkActionPerformed
+
+    private void fieldkdMkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldkdMkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldkdMkActionPerformed
+
+    private void fieldJadwalKddosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldJadwalKddosenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldJadwalKddosenActionPerformed
+
+    private void fieldJadwalKdMkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldJadwalKdMkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldJadwalKdMkActionPerformed
+
+    private void fieldJadwalKdKlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldJadwalKdKlsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldJadwalKdKlsActionPerformed
+
+    private void fieldJadwalKdRuangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldJadwalKdRuangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldJadwalKdRuangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -906,6 +1459,10 @@ public class guimenu extends javax.swing.JFrame {
             }
         });
     }
+
+    public JLabel getBtnBacKOlahjadwal() {
+        return btnBacKOlahjadwal;
+    }
      public void addMouseListeners(MouseListener me) {
         btnOlahData.addMouseListener(me);
         btnOlahJadwal.addMouseListener(me);
@@ -914,6 +1471,60 @@ public class guimenu extends javax.swing.JFrame {
         btnMk.addMouseListener(me);
         btnKls.addMouseListener(me);
         btnRuang.addMouseListener(me);
+        btnBack.addMouseListener(me);
+        btnsavedosen.addMouseListener(me);
+        btnhpsdosen.addMouseListener(me);
+        btnviewdosen.addMouseListener(me);
+        btncanceldosen.addMouseListener(me);
+        btnsaveMk.addMouseListener(me);
+        btnhpsmk.addMouseListener(me);
+        btnviewMk.addMouseListener(me);
+        btnCancelmk.addMouseListener(me);
+        btntmbhkelas.addMouseListener(me);
+        btnHapuskls.addMouseListener(me);
+        btnviewkelas.addMouseListener(me);
+        btnCancelkelas.addMouseListener(me);
+        btnsaveruang.addMouseListener(me);
+        btnHapusruang.addMouseListener(me);
+        btnviewRuang.addMouseListener(me);
+        btncancelruang.addMouseListener(me);
+        btnOlahJadwal.addMouseListener(me);
+        btnInputjadwal.addMouseListener(me);
+        btnsavejadwal.addMouseListener(me);
+        btncanceljadwal.addMouseListener(me);
+        btnviewJadwal1bln.addMouseListener(me);
+        btnViewJadwalSemua.addMouseListener(me);
+        btnviewHari.addMouseListener(me);
+        kembaliviewall1bulan.addMouseListener(me);
+        kembaliviewall1hari.addMouseListener(me);
+        kembaliviewalljdwal.addMouseListener(me);
+        btnBacKOlahjadwal.addMouseListener(me);
+        btnbackviewAllDosen.addMouseListener(me);
+        btnbackviewAllKelas.addMouseListener(me);
+        btnbackviewAllRuang.addMouseListener(me);
+        btnbackviewAllMk.addMouseListener(me);
+        
+        
+    }
+
+    public JButton getBtnrefjadwal1hari() {
+        return btnrefjadwal1hari;
+    }
+
+    public JButton getBtnrefviewalljadwal() {
+        return btnrefviewalljadwal;
+    }
+
+    public JSpinner getJspinnerviewjadwal1hari() {
+        return jspinnerviewjadwal1hari;
+    }
+
+    public JLabel getKembaliviewall1hari() {
+        return kembaliviewall1hari;
+    }
+
+    public JLabel getKembaliviewalljdwal() {
+        return kembaliviewalljdwal;
     }
 
     public Graphics getG() {
@@ -1067,15 +1678,13 @@ public class guimenu extends javax.swing.JFrame {
     public JTextField getFieldnamadosen() {
         return fieldnamadosen;
     }
-
- 
-
+    
     public JLabel getjLabel10() {
         return btnOlahJadwal;
     }
 
     public JLabel getjLabel11() {
-        return jLabel11;
+        return btnBacKOlahjadwal;
     }
 
     public JLabel getjLabel12() {
@@ -1175,6 +1784,14 @@ public class guimenu extends javax.swing.JFrame {
         return panelmenuawal;
     }
 
+    public JLabel getBtncanceljadwal() {
+        return btncanceljadwal;
+    }
+
+    public JLabel getBtnsavejadwal() {
+        return btnsavejadwal;
+    }
+
 
     public JPanel getPanelViewJadwalbulan() {
         return panelViewJadwalbulan;
@@ -1212,6 +1829,10 @@ public class guimenu extends javax.swing.JFrame {
         return tableViewRuang;
     }
 
+    public JLabel getKembaliviewalldosen() {
+        return kembaliviewall1bulan;
+    }
+
     public JTable getTableViewalljadwal() {
         return tableViewalljadwal;
     }
@@ -1227,9 +1848,100 @@ public class guimenu extends javax.swing.JFrame {
     public JTable getTableviewjadwalbulan() {
         return tableviewjadwalbulan;
     }
-    
 
+    public JButton getjButton1() {
+        return jButton1;
+    }
+
+    public int getCboxShift() {
+        int x=0;
+        if(cboxShift.getSelectedIndex()==0){
+            x=1;
+        }if(cboxShift.getSelectedIndex()==1){
+            x=2;
+        }if(cboxShift.getSelectedIndex()==2){
+            x=3;
+        }if(cboxShift.getSelectedIndex()==3){
+            x=4;
+        }if(cboxShift.getSelectedIndex()==4){
+            x=5;
+        }if(cboxShift.getSelectedIndex()==5){
+            x=6;
+        }
+        return x;
+    }
+
+    public JComboBox getCboxviewjadwalbulan() {
+        return cboxviewjadwalbulan;
+    }
+
+    public JTextField getFieldJadwalKdKls() {
+        return fieldJadwalKdKls;
+    }
+
+    public JTextField getFieldJadwalKdMk() {
+        return fieldJadwalKdMk;
+    }
+
+    public JTextField getFieldJadwalKdRuang() {
+        return fieldJadwalKdRuang;
+    }
+
+    public JTextField getFieldJadwalKddosen() {
+        return fieldJadwalKddosen;
+    }
+
+    public JSpinner getJspinnertgl() {
+        return jspinnertgl;
+    }
+   public void addlistener(ActionListener e){
+       getjButton1().addActionListener(e);
+       getCboxviewjadwalbulan().addActionListener(e);
+       getBtnrefalldosen().addActionListener(e);
+       getBtnrefallkls().addActionListener(e);
+       getBtnrefallmk().addActionListener(e);
+       getBtnrefruang().addActionListener(e);
+       getBtnrefjadwal1hari().addActionListener(e);
+       getBtnrefviewalljadwal().addActionListener(e);
+   } 
+   public void addchangelistener(ChangeListener  e){
+       getJspinnertgl().addChangeListener(e);
+       
+   }
+
+    public JLabel getBtnbackviewAllDosen() {
+        return btnbackviewAllDosen;
+    }
+
+    public JLabel getBtnbackviewAllKelas() {
+        return btnbackviewAllKelas;
+    }
+
+    public JLabel getBtnbackviewAllMk() {
+        return btnbackviewAllMk;
+    }
+
+    public JLabel getBtnbackviewAllRuang() {
+        return btnbackviewAllRuang;
+    }
+
+    public JButton getBtnrefalldosen() {
+        return btnrefalldosen;
+    }
+
+    public JButton getBtnrefallkls() {
+        return btnrefallkls;
+    }
+
+    public JButton getBtnrefallmk() {
+        return btnrefallmk;
+    }
+
+    public JButton getBtnrefruang() {
+        return btnrefruang;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnBacKOlahjadwal;
     private javax.swing.JLabel btnBack;
     private javax.swing.JLabel btnCancelkelas;
     private javax.swing.JLabel btnCancelmk;
@@ -1247,12 +1959,24 @@ public class guimenu extends javax.swing.JFrame {
     private javax.swing.JLabel btnOlahJadwal;
     private javax.swing.JLabel btnRuang;
     private javax.swing.JLabel btnViewJadwalSemua;
+    private javax.swing.JLabel btnbackviewAllDosen;
+    private javax.swing.JLabel btnbackviewAllKelas;
+    private javax.swing.JLabel btnbackviewAllMk;
+    private javax.swing.JLabel btnbackviewAllRuang;
     private javax.swing.JLabel btncanceldosen;
+    private javax.swing.JLabel btncanceljadwal;
     private javax.swing.JLabel btncancelruang;
     private javax.swing.JLabel btnhpsdosen;
     private javax.swing.JLabel btnhpsmk;
+    private javax.swing.JButton btnrefalldosen;
+    private javax.swing.JButton btnrefallkls;
+    private javax.swing.JButton btnrefallmk;
+    private javax.swing.JButton btnrefjadwal1hari;
+    private javax.swing.JButton btnrefruang;
+    private javax.swing.JButton btnrefviewalljadwal;
     private javax.swing.JLabel btnsaveMk;
     private javax.swing.JLabel btnsavedosen;
+    private javax.swing.JLabel btnsavejadwal;
     private javax.swing.JLabel btnsaveruang;
     private javax.swing.JLabel btntmbhkelas;
     private javax.swing.JLabel btnviewHari;
@@ -1261,6 +1985,12 @@ public class guimenu extends javax.swing.JFrame {
     private javax.swing.JLabel btnviewRuang;
     private javax.swing.JLabel btnviewdosen;
     private javax.swing.JLabel btnviewkelas;
+    private javax.swing.JComboBox cboxShift;
+    private javax.swing.JComboBox cboxviewjadwalbulan;
+    private javax.swing.JTextField fieldJadwalKdKls;
+    private javax.swing.JTextField fieldJadwalKdMk;
+    private javax.swing.JTextField fieldJadwalKdRuang;
+    private javax.swing.JTextField fieldJadwalKddosen;
     private javax.swing.JTextField fieldKapKelas;
     private javax.swing.JTextField fieldKapRuang;
     private javax.swing.JTextField fieldkdKls;
@@ -1269,13 +1999,36 @@ public class guimenu extends javax.swing.JFrame {
     private javax.swing.JTextField fieldkdosen;
     private javax.swing.JTextField fieldnamaMk;
     private javax.swing.JTextField fieldnamadosen;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1286,6 +2039,11 @@ public class guimenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JOptionPane jpane;
+    private javax.swing.JSpinner jspinnertgl;
+    private javax.swing.JSpinner jspinnerviewjadwal1hari;
+    private javax.swing.JLabel kembaliviewall1bulan;
+    private javax.swing.JLabel kembaliviewall1hari;
+    private javax.swing.JLabel kembaliviewalljdwal;
     private javax.swing.JPanel panelInputJadwal;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelOlahDosen;
@@ -1309,5 +2067,9 @@ public class guimenu extends javax.swing.JFrame {
     private javax.swing.JTable tableviewMk;
     private javax.swing.JTable tableviewjadwalbulan;
     // End of variables declaration//GEN-END:variables
+
+    public JLabel getKembaliviewall1bulan() {
+        return kembaliviewall1bulan;
+    }
 
 }

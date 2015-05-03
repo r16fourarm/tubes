@@ -20,23 +20,28 @@ public class Jadwal {
     private Dosen dosen;
     private RuangKelas ruang;
     private Date cal;
-    private String kdJadwal;
+    private int kdJadwal;
     private int shift;
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, String kdJadwal, int shift) {
-            this.kelas = kelas;
-            this.matkul = matkul;
-            this.dosen = dosen;
-            this.ruang = ruang;
-            this.shift = shift;
-            try {
-                this.cal = formatter.parse(cal);
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
-            this.kdJadwal = kdJadwal;
-        
+    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, int kdJadwal, int shift) throws ParseException {
+        this.kelas = kelas;
+        this.matkul = matkul;
+        this.dosen = dosen;
+        this.ruang = ruang;
+        this.shift = shift;
+        this.cal = formatter.parse(cal);
+        this.kdJadwal = kdJadwal;
+
+    }
+
+    public Jadwal(Kelas kelas, MataKuliah matkul, Dosen dosen, RuangKelas ruang, String cal, int shift) throws ParseException {
+        this.kelas = kelas;
+        this.matkul = matkul;
+        this.dosen = dosen;
+        this.ruang = ruang;
+        this.cal = formatter.parse(cal);
+        this.shift = shift;
     }
 
     public boolean cekFull(RuangKelas r, Kelas k) {
@@ -63,7 +68,7 @@ public class Jadwal {
         return cal;
     }
 
-    public String getKdJadwal() {
+    public int getKdJadwal() {
         return kdJadwal;
     }
 
