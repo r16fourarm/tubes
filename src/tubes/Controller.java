@@ -15,8 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
@@ -72,18 +71,28 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     private final ImageIcon iconbtnViewAllJadwal1hariClicked = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-1hari-clicked.png");
     private final ImageIcon iconbtnView1bulanJadwal = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-bulan.png");
     private final ImageIcon iconbtnView1bulanJadwalClicked = new ImageIcon("C:\\Users\\R16\\Documents\\NetBeansProjects\\tubes\\src\\tubes\\gambar\\btn-bulan-clicked.png");
-
+/**
+ * set view yang dipakai 
+ * @param gui 
+ * gui yang digunakan
+ */
     public void setView(guimenu gui) {
         this.gui = gui;
         simpen();
     }
-
+/**
+ * set listener yang digunakan
+ */
     public void setListener() {
         gui.addlistener(this);
         gui.addMouseListeners(this);
 
     }
-
+/**
+ * action performed dari event yang ada
+ * @param e 
+ * action event
+ */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -369,6 +378,7 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
             gui.getFieldkdMk().setText("");
         } else {
             odmk.remove(x);
+            setjpanemessage("Mata kuliah telah dihapus");
         }
         odmk.emptyTemp();
     }
@@ -379,7 +389,9 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     public void apViewMKClicked() {
         panelChange(gui.getPanelViewMK());
     }
-
+/**
+ * action performed dari tombol save
+ */
     public void apSaveKelasClicked() {
         odk.loadData();
         Kelas x = odk.cariKelas(gui.getFieldkdKls().getText());
@@ -394,7 +406,9 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
         }
         odk.emptyTemp();
     }
-
+/**
+ * action performed dari tombol hapus
+ */
     public void apHapusKelasClicked() {
         odk.loadData();
         Kelas x = odk.cariKelas(gui.getFieldkdKls().getText());
@@ -408,11 +422,15 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
         }
         odmk.emptyTemp();
     }
-
+/**
+ * action performed dari tombol view
+ */
     public void apViewKelasClicked() {
         panelChange(gui.getPanelViewKelas());
     }
-
+/**
+     * action performed dari tombol save
+     */
     public void apSaveRuangClicked() {
         odr.loadData();
         RuangKelas x = odr.cariRuang(gui.getFieldkdRuang().getText());
@@ -463,7 +481,9 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
         odmk.emptyTemp();
         odr.emptyTemp();
     }
-
+/**
+     * action performed dari tombol save
+     */
     public void apSaveJadwalClicked() {
         odj.loadData();
 
@@ -517,7 +537,13 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
         }
         odj.emptyTemp();
     }
-
+/**
+ * method merubah tampilah shift pada gui menjadi string
+ * @param shift
+ * parameter shift bertype angka
+ * @return 
+ * mengembalikan String interval waktu shift
+ */
     public String shifttoString(int shift) {
         Jadwal j;
         String s = null;
@@ -536,20 +562,29 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
         }
         return s;
     }
-
+/**
+ * getter combobox yang dipilih
+ * @return 
+ */
     public int comboboxbulan() {
         return gui.getCboxviewjadwalbulan().getSelectedIndex();
     }
-
+/**
+ * action performed kembali ke menu awal
+ */
     public void apbacktomenujadwal() {
         panelChange(gui.getPanelOlahjadwal());
     }
-
+/**
+ * action performed tombol view jadwal 1 bulan
+ */
     public void apviewJadwal1bulan() {
         panelChange(gui.getPanelViewJadwalbulan());
 
     }
-
+/**
+ * action performed tombol view jadwal 1 hari
+ */
     public void apviewJadwal1hari() {
         panelChange(gui.getPanelview1hari());
     }
@@ -561,7 +596,11 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-
+/**
+ * action/event ketika mouse dipencet
+ * @param e 
+ * parameter berupa event
+ */
     @Override
     public void mousePressed(MouseEvent e) {
         Object source = e.getSource();
@@ -647,7 +686,11 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
             gui.getBtncanceljadwal().setIcon(iconbtnCancelclicked);
         }
     }
-
+/**
+ * action/event ketika mouse dilepaskan setelah dipencet
+ * @param e 
+ * parameter event
+ */
     @Override
     public void mouseReleased(MouseEvent e) {
         Object source = e.getSource();
@@ -719,7 +762,7 @@ public class Controller extends MouseAdapter implements ActionListener, MouseLis
             apHapusRuangClicked();
             gui.getBtnHapusruang().setIcon(iconbtnHapus);
         } else if (source.equals(gui.getBtnviewRuang())) {
-            apHapusRuangClicked();
+            apViewRuangClicked();
             gui.getBtnviewRuang().setIcon(iconbtnViewOlahData);
         } else if (source.equals(gui.getBtncancelruang())) {
             apKembalitoMenuAwalbtnClicked();
